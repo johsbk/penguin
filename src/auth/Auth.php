@@ -1,6 +1,6 @@
 <?php
-namespace templates\auth;
-use \templates\auth\models\Profiles;
+namespace penguin\auth;
+use \penguin\auth\models\Profiles;
 class Auth {
 	/**
 	 * Enter description here...

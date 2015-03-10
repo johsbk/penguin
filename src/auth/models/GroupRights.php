@@ -1,10 +1,10 @@
 <?php
-namespace templates\auth\models;
-use \templates\model\BaseModel,
-	\templates\model\IdField,
-	\templates\model\UintField,
-	\templates\model\EnumField,
-	\templates\model\ForeignKeyField;
+namespace penguin\auth\models;
+use \penguin\model\BaseModel,
+	\penguin\model\IdField,
+	\penguin\model\UintField,
+	\penguin\model\EnumField,
+	\penguin\model\ForeignKeyField;
 class GroupRights extends BaseModel {
 	static $id;
 	static $group;

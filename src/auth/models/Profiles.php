@@ -1,9 +1,9 @@
 <?php
-namespace templates\auth\models;
-use \templates\model\BaseModel;
-use \templates\model\IdField;
-use \templates\model\VarcharField;
-use \templates\db\DB;
+namespace penguin\auth\models;
+use \penguin\model\BaseModel;
+use \penguin\model\IdField;
+use \penguin\model\VarcharField;
+use \penguin\db\DB;
 class Profiles extends BaseModel {
 	static $id;
 	static $name;
