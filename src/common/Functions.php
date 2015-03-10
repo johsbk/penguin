@@ -1,6 +1,6 @@
 <?php
-namespace templates\common;
-use \templates\db\DB;
+namespace penguin\common;
+use \penguin\db\DB;
 use \Exception;
 class Functions {
 	static $foundOldestAncestors = array();
