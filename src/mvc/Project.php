@@ -22,8 +22,6 @@ abstract class Project {
 			
 			$twig->addGlobal('URL_PATH', URL_PATH);
 			$twig->addGlobal('MEDIA_PATH', MEDIA_PATH);
-			$twig->addGlobal('TEMPLATE_PATH', TEMPLATE_PATH);
-			$twig->addGlobal('TEMPLATE_MEDIA_PATH', TEMPLATE_MEDIA_PATH);
 			$twig->addGlobal('request',$_REQUEST);
 			$twig->addGlobal('loggedin', Auth::isLoggedin());
 			$twig->addGlobal('current_user', Auth::$profile);
