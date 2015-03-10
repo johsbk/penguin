@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class ModelUtils {
 	static function json($input) {
 		if (is_array($input)) {

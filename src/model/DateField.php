@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class DateField extends ModelField {
 	function __construct($dict=array()) {
 		parent::__construct($dict);
@@ -33,7 +33,7 @@ class DateField extends ModelField {
 		
 	}
 	function getFormField() {
-		$f = new \templates\forms\DateField();
+		$f = new \penguin\forms\DateField();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

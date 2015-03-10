@@ -1,5 +1,5 @@
 <?php
-namespace templates\mvc;
+namespace penguin\mvc;
 use \Exception;
 Class Template {
 
@@ -25,7 +25,7 @@ Class Template {
 		$twig = Registry::getInstance()->twig;
         $this->router = Registry::getInstance()->router;
 		$app = $this->router->app;
-		if (substr($app,0,9)=='templates') {
+		if (substr($app,0,9)=='penguin') {
 			$path = IMPORT_PATH .substr($app,10). '/views/'. $name . '.php';
 		} else {
 			$path = SITE_PATH .'/'.$app. '/views/'. $name . '.php';

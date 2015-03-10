@@ -1,7 +1,7 @@
 <?php
-namespace templates\mvc;
-use templates\auth\Auth;
-use templates\common\Functions;
+namespace penguin\mvc;
+use penguin\auth\Auth;
+use penguin\common\Functions;
 use \Exception;
 class Router {
 	private $path;

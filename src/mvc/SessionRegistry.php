@@ -1,5 +1,5 @@
 <?php
-namespace templates\mvc;
+namespace penguin\mvc;
 class SessionRegistry {
 	private $vars = array();
 	private static $instance;

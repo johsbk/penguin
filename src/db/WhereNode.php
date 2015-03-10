@@ -1,5 +1,5 @@
 <?php
-namespace templates\db;
+namespace penguin\db;
 class WhereNode {
 	const AND_NODE = 'AND';
 	const OR_NODE = 'OR';

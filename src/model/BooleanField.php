@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class BooleanField extends EnumField {
 	function __construct($dict=array()) {
 		$dict['options'] = array('true','false');

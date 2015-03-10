@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class TimestampField extends ModelField {
 	function __construct($dict=array()) {
 		$dict['default'] = '0000-00-00 00:00:00';

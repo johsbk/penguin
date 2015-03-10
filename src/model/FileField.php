@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class FileField extends VarcharField {
 	var $path;
 	function __construct($dict=array()) {

@@ -1,6 +1,6 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
+namespace penguin\model;
+use \penguin\common\Functions;
 class EnumField extends ModelField {
 	var $options;
 	function __construct($dict=array()) {

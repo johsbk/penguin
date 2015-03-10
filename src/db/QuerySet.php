@@ -1,7 +1,7 @@
 <?php
-namespace templates\db;
-use templates\db\Qand;
-use templates\model\ForeignKeyField;
+namespace penguin\db;
+use penguin\db\Qand;
+use penguin\model\ForeignKeyField;
 class QuerySet implements \Iterator {
 	var $query;
 	var $model;

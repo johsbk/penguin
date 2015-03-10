@@ -1,5 +1,5 @@
 <?php
-namespace templates\db;
+namespace penguin\db;
 class SQLCompiler {
 	var $query;
 	function __construct($query) {

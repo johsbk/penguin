@@ -1,5 +1,5 @@
 <?php
-namespace templates\mvc;
+namespace penguin\mvc;
 class PatternNotFoundException extends \Exception {
 	
 }

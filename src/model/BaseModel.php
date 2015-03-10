@@ -1,8 +1,8 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
-use \templates\db\DB;
-use \templates\db\QuerySet;
+namespace penguin\model;
+use \penguin\common\Functions;
+use \penguin\db\DB;
+use \penguin\db\QuerySet;
 use \Exception;
 abstract class BaseModel {
 	static $_name = array();

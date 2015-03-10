@@ -1,5 +1,5 @@
 <?php
-namespace templates\db;
+namespace penguin\db;
 class ResultSet {
 	var $result;
 	function __construct($result) {

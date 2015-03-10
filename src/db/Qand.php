@@ -1,8 +1,8 @@
 <?php
-namespace templates\db;
-use templates\model\BaseModel;
-use templates\model\DateTimeField;
-use templates\model\DateField;
+namespace penguin\db;
+use penguin\model\BaseModel;
+use penguin\model\DateTimeField;
+use penguin\model\DateField;
 class Qand {
 	var $type = 'AND';
 	var $args;

@@ -1,5 +1,5 @@
 <?php
-namespace templates\db;
+namespace penguin\db;
 class Query {
 	var $model;
 	var $where = array();

@@ -1,6 +1,6 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
+namespace penguin\model;
+use \penguin\common\Functions;
 use \Exception;
 class ForeignKeyField extends UintField {
 	var $model;
@@ -41,7 +41,7 @@ class ForeignKeyField extends UintField {
 	}
 	function getFormField() {
 		$model = $this->model;
-		$f = new \templates\forms\ModelChoiceField(array('queryset'=>$model::all()));
+		$f = new \penguin\forms\ModelChoiceField(array('queryset'=>$model::all()));
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

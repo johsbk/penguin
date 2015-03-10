@@ -1,6 +1,6 @@
 <?php
-namespace templates\db;
-use templates\model\BaseModel;
+namespace penguin\db;
+use penguin\model\BaseModel;
 class Qor extends Qand {
 	var $type = 'OR';
 }

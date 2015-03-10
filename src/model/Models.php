@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class Models {
 	static $models = array();
 	static function checkIntegrity() {
@@ -13,7 +13,7 @@ class Models {
 		if ($handle = opendir($path)) {
 				while (false !== ($file = readdir($handle))) {
 					if (substr($file,-4) == '.php') {
-						\templates\Import::inc_once($path.$file);
+						\penguin\Import::inc_once($path.$file);
 						$classes[] = substr($file,0,-4);
 					}
 			}

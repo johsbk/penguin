@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class IdField extends UintField {
 	var $size;
 	function __construct($dict=array()) {
@@ -8,7 +8,7 @@ class IdField extends UintField {
 		parent::__construct($dict);
 	}
 	function getFormField() {
-		$f = new \templates\forms\HiddenField();
+		$f = new \penguin\forms\HiddenField();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

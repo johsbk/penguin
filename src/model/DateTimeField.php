@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class DateTimeField extends ModelField {
 	function __construct($dict=array()) {
 		if (!isset($dict['default'])) $dict['default'] = null;

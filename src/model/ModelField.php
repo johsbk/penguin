@@ -1,7 +1,7 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
-use \templates\db\DB;
+namespace penguin\model;
+use \penguin\common\Functions;
+use \penguin\db\DB;
 use \Exception;
 abstract class ModelField {
 	var $name;
@@ -57,7 +57,7 @@ abstract class ModelField {
 	abstract function getType();
 	abstract function getFormType();
 	function getFormField() {
-		$f = new \templates\forms\CharField();
+		$f = new \penguin\forms\CharField();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

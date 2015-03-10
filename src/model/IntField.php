@@ -1,6 +1,6 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
+namespace penguin\model;
+use \penguin\common\Functions;
 use \Exception;
 class IntField extends ModelField {
 	var $size;

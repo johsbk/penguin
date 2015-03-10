@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class ImageField extends FileField {
 	function __construct($dict=array()) {
 		parent::__construct($dict);
@@ -9,8 +9,8 @@ class ImageField extends FileField {
 	}
 
 	function getFormField() {
-		$f = new \templates\forms\FileField(array("path"=>$this->path));
-		$f->widget = new \templates\forms\widgets\ImageWidget();
+		$f = new \penguin\forms\FileField(array("path"=>$this->path));
+		$f->widget = new \penguin\forms\widgets\ImageWidget();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

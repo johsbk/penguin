@@ -1,6 +1,6 @@
 <?php
-namespace templates\model;
-use \templates\common\Functions;
+namespace penguin\model;
+use \penguin\common\Functions;
 class UsmallintField extends ModelField {
 	var $size;
 	function __construct($dict=array()) {

@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class DoubleField extends ModelField {
 	function __construct($dict=array()) {
 		if (!isset($dict['default'])) $dict['default'] = '';
@@ -22,7 +22,7 @@ class DoubleField extends ModelField {
 		return $value==='' || is_null($value) ? 'NULL' : $value;
 	}
 	function getFormField() {
-		$f = new \templates\forms\DoubleField();
+		$f = new \penguin\forms\DoubleField();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

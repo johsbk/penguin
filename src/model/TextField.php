@@ -1,5 +1,5 @@
 <?php
-namespace templates\model;
+namespace penguin\model;
 class TextField extends ModelField {
 	function __construct($dict=array()) {
 		if (!isset($dict['default'])) $dict['default'] = '';
@@ -12,8 +12,8 @@ class TextField extends ModelField {
 		return "blob";	
 	}
 	function getFormField() {
-		$f = new \templates\forms\CharField();
-		$f->widget = new \templates\forms\widgets\TextareaWidget();
+		$f = new \penguin\forms\CharField();
+		$f->widget = new \penguin\forms\widgets\TextareaWidget();
 		$f->name = $this->name;
 		$f->dbname = $this->dbname;
 		return $f;

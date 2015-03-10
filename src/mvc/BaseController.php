@@ -1,8 +1,8 @@
 <?php
-namespace templates\mvc;
+namespace penguin\mvc;
 use mvc\FormBuilder;
 
-use templates\model\BaseModel;
+use penguin\model\BaseModel;
 
 abstract class BaseController {
 	/**

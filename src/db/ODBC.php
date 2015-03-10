@@ -1,5 +1,5 @@
 <?php
-namespace templates\db;
+namespace penguin\db;
 class ODBC {
 	static $conn;
 	
