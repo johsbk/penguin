@@ -8,12 +8,15 @@ use penguin\auth\Auth;
 use penguin\Mail\MailService;
 abstract class Project {
 	var $defaultLocale = 'auto';
+	function __construct() {
+		spl_autoload_register(array('penguin\mvc\Project','autoload'));	
+		
+		\penguin\db\DB::login(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);	
+	}
 	function run() {
-		spl_autoload_register(array('penguin\mvc\Project','autoload'));
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
 		$twig = new \Twig_Environment($loader,array('cache'=>SITE_PATH.'/cache/','debug'=>true));
 		Registry::getInstance()->twig = $twig;
-		\penguin\db\DB::login(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
 		try {
 			$route = (isset($_GET['rt']) ? $_GET['rt'] : '');
 			unset($_GET['rt']);
