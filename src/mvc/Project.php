@@ -10,7 +10,8 @@ abstract class Project {
 	var $defaultLocale = 'auto';
 	function __construct() {
 		spl_autoload_register(array('penguin\mvc\Project','autoload'));	
-		
+		if (file_exists('config.php')) 
+			include('config.php');
 		\penguin\db\DB::login(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);	
 	}
 	function run() {
