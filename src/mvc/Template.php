@@ -28,7 +28,7 @@ Class Template {
 		if (substr($app,0,9)=='penguin') {
 			$path = IMPORT_PATH .substr($app,10). '/views/'. $name . '.php';
 		} else {
-			$path = SITE_PATH .'/'.$app. '/views/'. $name . '.php';
+			$path = SITE_PATH .'/src/'.$app. '/views/'. $name . '.php';
 		}
 
 		if (file_exists($path) == false) {
