@@ -1,5 +1,5 @@
 <?php
-namespace penguin\patterns\Singleton;
+namespace penguin\patterns;
 class Singleton {
     private static $instances = array();
     protected function __construct() {}
