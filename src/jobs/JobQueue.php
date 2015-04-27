@@ -14,7 +14,7 @@ class JobQueue extends Singleton {
 		$this->queue_name = 'job_queue';
 		$this->conn = new AMQPConnection('localhost',5672,'guest','guest');
 		$this->channel = $this->conn->channel();
-		$this->channel->queue_declare($queue_name,false,true,false,false);
+		$this->channel->queue_declare($this->queue_name,false,true,false,false);
 	}
 	/**
 	 * @var $job Job
