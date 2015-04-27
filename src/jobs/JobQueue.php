@@ -30,7 +30,7 @@ class JobQueue extends Singleton {
 			if ($obj instanceof Job)
 				$obj->run();
 			$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-		}
+		};
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
 		while(count($this->channel->callbacks)) {
