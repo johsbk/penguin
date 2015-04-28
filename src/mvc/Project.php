@@ -10,14 +10,12 @@ class Project {
 	private $env = null;
 	private $preparetwig = null;
 	function __construct() {
-		
-		$this->initDatabase();
 	}
 	function detectEnvironment($dict) {
 		foreach ($dict as $env=>$hosts) if (in_array(gethostname(), $hosts)) $this->env = $env;
 	}
 	var $defaultLocale = 'auto';
-	private function initDatabase() {
+	function initDatabase() {
 		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/database.php'))
 			$settings = require($config);
 		else
@@ -32,6 +30,7 @@ class Project {
 		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
+		$this->initDatabase();
 		$this->initRoutes();
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
 		$twig = new \Twig_Environment($loader,array('cache'=>SITE_PATH.'/cache/','debug'=>true));
