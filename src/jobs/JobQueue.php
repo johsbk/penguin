@@ -5,8 +5,8 @@ use PhpAmqpLib\Message\AMQPMessage;
 use penguin\patterns\Singleton;
 class JobQueue extends Singleton {
 	protected $queue_name = 'job_queue';
-	private $conn;
-	private $channel;
+	protected $conn;
+	protected $channel;
 	/**
 	 * @var $queue_name String
 	 */
