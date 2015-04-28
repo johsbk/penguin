@@ -10,7 +10,7 @@ class Project {
 	private $env = null;
 	private $preparetwig = null;
 	function __construct() {
-
+		$this->initDatabase();
 	}
 	function detectEnvironment($dict) {
 		foreach ($dict as $env=>$hosts) if (in_array(gethostname(), $hosts)) $this->env = $env;
@@ -31,7 +31,6 @@ class Project {
 		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
-		$this->initDatabase();
 		$this->initRoutes();
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
 		$twig = new \Twig_Environment($loader,array('cache'=>SITE_PATH.'/cache/','debug'=>true));
