@@ -6,15 +6,33 @@ use penguin\mvc\Registry;
 
 use penguin\auth\Auth;
 use penguin\Mail\MailService;
-abstract class Project {
+class Project {
+	private $env = null;
+	private $preparetwig = null;
+	function __construct() {
+
+	}
+	function detectEnvironment($dict) {
+
+	}
 	var $defaultLocale = 'auto';
-	function setConfig($settings) {
+	private function initDatabase() {
+		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/database.php'))
+			$settings = require($config);
+		else
+			$settings = SITE_PATH.'/config/database.php'
 		\penguin\db\DB::login($settings['user'],$settings['pass'],$settings['host'],$settings['db']);	
 	}
-	function setRoutes($routes) {
+	private function initRoutes() {
+		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/routes.php'))
+			$routes = require($config);
+		else
+			$routes = SITE_PATH.'/config/routes.php'
 		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
+		$this->initConfig();
+		$this->initRoutes();
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
 		$twig = new \Twig_Environment($loader,array('cache'=>SITE_PATH.'/cache/','debug'=>true));
 		Registry::getInstance()->twig = $twig;
@@ -28,7 +46,7 @@ abstract class Project {
 			$twig->addGlobal('request',$_REQUEST);
 			$twig->addGlobal('loggedin', Auth::isLoggedin());
 			$twig->addGlobal('current_user', Auth::$profile);
-			$this->inittwig($twig);			
+			if ($this->preparetwig) $this->preparetwig($twig);			
 			$reg = \penguin\mvc\Registry::getInstance();
 			$reg->project = $this;
 			$reg->template = new \penguin\mvc\Template();
@@ -73,7 +91,9 @@ abstract class Project {
 		}
 		
 	}
-	abstract function inittwig($twig);
+	function inittwig($fn) {
+		$this->preparetwig = $fn;
+	}
 	
 	function handleException($route,\Exception $e) {
 		$reg = Registry::getInstance();
