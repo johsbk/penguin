@@ -9,7 +9,6 @@ use penguin\Mail\MailService;
 abstract class Project {
 	var $defaultLocale = 'auto';
 	function __construct() {
-		spl_autoload_register(array('penguin\mvc\Project','autoload'));	
 		if (file_exists('config.php')) 
 			include('config.php');
 		\penguin\db\DB::login(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);	
@@ -74,14 +73,7 @@ abstract class Project {
 		
 	}
 	abstract function inittwig($twig);
-	static function autoload($class_name) {
-		$filename = $class_name . '.php';
-		$t = str_replace("\\",'/',SITE_PATH.'/src/'.$filename);
-		if (file_exists($t)) {
-			include($t);
-			return true;
-		}
-	}
+	
 	function handleException($route,\Exception $e) {
 		$reg = Registry::getInstance();
 
