@@ -13,7 +13,7 @@ class Project {
 
 	}
 	function detectEnvironment($dict) {
-
+		echo $_SERVER['SERVER_NAME'];
 	}
 	var $defaultLocale = 'auto';
 	private function initDatabase() {
