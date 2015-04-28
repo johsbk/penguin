@@ -46,7 +46,10 @@ class Project {
 			$twig->addGlobal('request',$_REQUEST);
 			$twig->addGlobal('loggedin', Auth::isLoggedin());
 			$twig->addGlobal('current_user', Auth::$profile);
-			if ($this->preparetwig) $this->preparetwig($twig);			
+			if ($this->preparetwig) {
+				$fn = $this->preparetwig;
+				$fn($twig);			
+			}
 			$reg = \penguin\mvc\Registry::getInstance();
 			$reg->project = $this;
 			$reg->template = new \penguin\mvc\Template();
