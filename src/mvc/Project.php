@@ -8,10 +8,11 @@ use penguin\auth\Auth;
 use penguin\Mail\MailService;
 abstract class Project {
 	var $defaultLocale = 'auto';
-	function __construct() {
-		if (file_exists('config.php')) 
-			include('config.php');
-		\penguin\db\DB::login(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);	
+	function setConfig($settings) {
+		\penguin\db\DB::login($settings['user'],$settings['pass'],$settings['host'],$settings['db']);	
+	}
+	function setRoutes($routes) {
+		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
