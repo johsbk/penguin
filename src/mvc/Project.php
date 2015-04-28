@@ -10,6 +10,17 @@ class Project {
 	private $env = null;
 	private $preparetwig = null;
 	function __construct() {
+		$site_path = realpath(dirname(__FILE__));
+		define("SITE_PATH",$site_path);
+		$pi = pathinfo($_SERVER['SCRIPT_NAME']);
+		if (isset($_SERVER['HTTP_HOST'])) {			
+			$urlpath = "http://".$_SERVER['HTTP_HOST'].$pi['dirname'];
+			$urlpath = substr($urlpath, 0,-1);
+			define("URL_PATH",$urlpath);
+			define("MEDIA_PATH",URL_PATH);
+
+			define("ROOT_PATH",SITE_PATH);
+		}
 		$this->initDatabase();
 	}
 	function detectEnvironment($dict) {
