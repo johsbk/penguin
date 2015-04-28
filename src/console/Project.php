@@ -5,7 +5,16 @@ class Project {
 		$project->initDatabase();
 	}
 	function run() {
-		print_r($_SERVER['argv']);
+		foreach ($_SERVER['argv'] as $arg) {
+			switch($arg) {
+				case 'runjobs':
+					$this->runJobs();
+					break;
+				case 'runfailedjobs':
+					$this->runFailedJobs();
+					break;
+			}
+		}
 	}
 	private function runJobs() {		
 		$jq = \penguin\jobs\JobQueue::getInstance();
