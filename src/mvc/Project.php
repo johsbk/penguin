@@ -13,7 +13,7 @@ class Project {
 
 	}
 	function detectEnvironment($dict) {
-		echo $_SERVER['SERVER_NAME'];
+		foreach ($dict as $env=>$hosts) if (in_array($_SERVER['SERVER_NAME'], $hosts) $this->env = $env;
 	}
 	var $defaultLocale = 'auto';
 	private function initDatabase() {
