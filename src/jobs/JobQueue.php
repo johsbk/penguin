@@ -4,14 +4,13 @@ use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use penguin\patterns\Singleton;
 class JobQueue extends Singleton {
-	protected $queue_name;
+	protected $queue_name = 'job_queue';
 	private $conn;
 	private $channel;
 	/**
 	 * @var $queue_name String
 	 */
 	function __construct() {
-		$this->queue_name = 'job_queue';
 		$this->conn = new AMQPConnection('localhost',5672,'guest','guest');
 		$this->channel = $this->conn->channel();
 		$this->channel->queue_declare($this->queue_name,false,true,false,false);
@@ -28,12 +27,13 @@ class JobQueue extends Singleton {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
 			try {
-
+				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 				if ($obj instanceof Job)
 					$obj->run();
-				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 			} catch (\Exception $e) {
 				echo 'Exception caught: '.$e->getMessage();
+				$fjq = FailedJobQueue::getInstance();
+				$fjq->add($obj);
 			}
 		};
 		$this->channel->basic_qos(null,1,null);
