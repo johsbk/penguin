@@ -31,7 +31,7 @@ class JobQueue extends Singleton {
 				if ($obj instanceof Job)
 					$obj->run();
 			} catch (\Exception $e) {
-				echo 'Exception caught: '.$e->getMessage();
+				echo 'Exception caught: '.$e->getMessage()."\n";
 				$fjq = FailedJobQueue::getInstance();
 				$fjq->add($obj);
 				if ($this->exit_on_failure)
