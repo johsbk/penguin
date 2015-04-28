@@ -20,18 +20,18 @@ class Project {
 		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/database.php'))
 			$settings = require($config);
 		else
-			$settings = SITE_PATH.'/config/database.php'
+			$settings = SITE_PATH.'/config/database.php';
 		\penguin\db\DB::login($settings['user'],$settings['pass'],$settings['host'],$settings['db']);	
 	}
 	private function initRoutes() {
 		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/routes.php'))
 			$routes = require($config);
 		else
-			$routes = SITE_PATH.'/config/routes.php'
+			$routes = SITE_PATH.'/config/routes.php';
 		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
-		$this->initConfig();
+		$this->initDatabase();
 		$this->initRoutes();
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));
 		$twig = new \Twig_Environment($loader,array('cache'=>SITE_PATH.'/cache/','debug'=>true));
