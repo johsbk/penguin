@@ -27,9 +27,14 @@ class JobQueue extends Singleton {
 	function runJobs() {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
-			if ($obj instanceof Job)
-				$obj->run();
-			$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+			try {
+
+				if ($obj instanceof Job)
+					$obj->run();
+				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+			} catch (\Exception $e) {
+				echo 'Exception caught: '.$e->getMessage();
+			}
 		};
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
