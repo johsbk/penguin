@@ -34,6 +34,8 @@ class JobQueue extends Singleton {
 				echo 'Exception caught: '.$e->getMessage();
 				$fjq = FailedJobQueue::getInstance();
 				$fjq->add($obj);
+				if ($this->exit_on_failure)
+					exit();
 			}
 		};
 		$this->channel->basic_qos(null,1,null);
