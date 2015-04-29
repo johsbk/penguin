@@ -13,6 +13,7 @@ class Project {
 	}
 	function detectEnvironment($dict) {
 		foreach ($dict as $env=>$hosts) if (in_array(gethostname(), $hosts)) $this->env = $env;
+		define('DEBUG',$this->env == 'local');
 	}
 	var $defaultLocale = 'auto';
 	function initDatabase() {
