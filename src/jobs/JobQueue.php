@@ -26,7 +26,8 @@ class JobQueue extends Singleton {
 	function runJobs() {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
-			try {
+			echo 'Running '.get_class($obj)."\n";
+			try {				
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 				if ($obj instanceof Job)
 					$obj->run();
@@ -34,8 +35,6 @@ class JobQueue extends Singleton {
 				echo 'Exception caught: '.$e->getMessage()."\n";
 				$fjq = FailedJobQueue::getInstance();
 				$fjq->add($obj);
-				if ($this->exit_on_failure)
-					exit();
 			}
 		};
 		$this->channel->basic_qos(null,1,null);

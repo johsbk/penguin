@@ -6,6 +6,7 @@ class FailedJobQueue extends JobQueue {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
 			try {
+				echo 'Running '.get_class($obj)."\n";
 				if ($obj instanceof Job)
 					$obj->run();
 
