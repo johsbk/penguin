@@ -6,7 +6,7 @@ class FailedJobQueue extends JobQueue {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
 			try {
-				echo 'Running '.get_class($obj)."\n";
+				echo 'Running '.get_class($obj)."...\n";
 				if ($obj instanceof Job)
 					$obj->run();
 
@@ -14,6 +14,7 @@ class FailedJobQueue extends JobQueue {
 			} catch (\Exception $e) {
 				echo 'Exception caught: '.$e->getMessage()."\n";
 				exit();
+				echo "done\n";
 			}
 		};
 		$this->channel->basic_qos(null,1,null);

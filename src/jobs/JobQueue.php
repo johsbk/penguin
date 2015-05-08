@@ -26,7 +26,7 @@ class JobQueue extends Singleton {
 	function runJobs() {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
-			echo 'Running '.get_class($obj)."\n";
+			echo 'Running '.get_class($obj)."...\n";
 			try {				
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 				if ($obj instanceof Job)
@@ -36,6 +36,7 @@ class JobQueue extends Singleton {
 				$fjq = FailedJobQueue::getInstance();
 				$fjq->add($obj);
 			}
+			echo "done\n";
 		};
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
