@@ -43,8 +43,4 @@ class JobQueue extends Singleton {
 			$this->channel->wait();
 		}
 	}
-	function __destruct() {
-		$this->channel->close();
-		$this->conn->close();
-	}
 }
