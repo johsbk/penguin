@@ -16,8 +16,12 @@ class DB {
 		self::$host = $host;
 		self::$db = $db;
 		#$tmp = microtime(true);
-		if (!self::$conn = mysqli_connect(self::$host,self::$user,self::$pass)) throw new Exception('mysql_connect error: '.mysqli_error(self::$conn));;
-		mysqli_select_db(self::$conn,self::$db) or die('mysql_select_db error:'.mysqli_error(self::$conn));
+		static::connect();
+		
+	}
+	private static function connect () {
+		self::$conn = mysqli_connect(self::$host,self::$user,self::$pass) or throw new DBException('mysql_connect error: '.mysqli_error(self::$conn));;
+		mysqli_select_db(self::$conn,self::$db) or throw new DBException('mysql_select_db error:'.mysqli_error(self::$conn));
 		#$this->timespentindb += microtime(true) -$tmp;
 		DB::query("SET NAMES 'utf8'");
 	}
@@ -32,9 +36,19 @@ class DB {
 	 * @param unknown_type $query
 	 * @return unknown
 	 */
-	static function query($query) {
+	static function query($query,$firsttry=true) {
 		#$tmp = microtime(true);
-		if(!$var = mysqli_query(self::$conn,$query)) throw new Exception("(".$query.") had an error: ".mysqli_error(self::$conn));
+		if (!$var = mysqli_query(self::$conn,$query)) {
+			case (mysqli_errno(self::$conn)) {
+				case 2006:
+					self::connect();
+					if ($firsttry)
+						return static::query($query,false);
+				default:
+					throw new DBException("(".$query.") had an error: ".mysqli_error(self::$conn));	
+			}
+			
+		} 
 		#$this->timespentindb += microtime(true) -$tmp;
 		return $var;
 	}
@@ -78,7 +92,7 @@ class DB {
 		return mysqli_insert_id(self::$conn);
 	}
 	static function escape($str) {
-		if (is_object($str)) throw new \Exception("you have given me an object");
+		if (is_object($str)) throw new DBException("you have given me an object");
 		return mysqli_escape_string(self::$conn,$str);
 	}
 	static function ezQuery($type,$table,$array,$where="",$order="",$limit="",$autoquotes=true) {
