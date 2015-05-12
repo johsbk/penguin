@@ -39,7 +39,7 @@ class DB {
 	static function query($query,$firsttry=true) {
 		#$tmp = microtime(true);
 		if (!$var = mysqli_query(self::$conn,$query)) {
-			case (mysqli_errno(self::$conn)) {
+			switch (mysqli_errno(self::$conn)) {
 				case 2006:
 					self::connect();
 					if ($firsttry)
