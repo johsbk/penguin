@@ -6,13 +6,13 @@ class FailedJobQueue extends JobQueue {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
 			try {
-				echo 'Running '.get_class($obj)."...\n";
+				echo date('Y-m-d H:i:s').': Running '.get_class($obj)."...";
 				if ($obj instanceof Job)
 					$obj->run();
 
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 			} catch (\Exception $e) {
-				echo 'Exception caught: '.$e->getMessage()."\n";
+				echo "Exception caught: ".$e->getMessage()."\n";
 				exit();
 				echo "done\n";
 			}

@@ -26,7 +26,7 @@ class JobQueue extends Singleton {
 	function runJobs() {
 		$cb = function ($msg) {
 			$obj = unserialize($msg->body);
-			echo 'Running '.get_class($obj)."...\n";
+			echo date('Y-m-d H:i:s').': Running '.get_class($obj)."...";
 			try {				
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 				if ($obj instanceof Job)
