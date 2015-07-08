@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms;
+namespace penguin\forms;
 class FormSet implements \Iterator {
 	private $form;
 	private $forms = array();

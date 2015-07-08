@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms;
+namespace penguin\forms;
 class ModelForm extends Form {
 	protected static $model;
 	protected static $fields;

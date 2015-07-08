@@ -1,6 +1,6 @@
 <?php
-namespace templates\forms;
-use templates\forms\widgets\SelectWidget;
+namespace penguin\forms;
+use penguin\forms\widgets\SelectWidget;
 class ModelChoiceField extends FormField {
 	private $choices = array();
 	function __construct($dict=array()) {

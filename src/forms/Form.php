@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms;
+namespace penguin\forms;
 
 abstract class Form implements \Iterator, FormInterface {
 	protected static $_fields = array();

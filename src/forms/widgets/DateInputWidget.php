@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 class DateInputWidget extends InputWidget {
 	var $type="text";
 	function render($name,$value,$attrs=array()) {

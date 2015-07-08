@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 abstract class InputWidget extends Widget {
 	var $type = null;
 	function render($name,$value,$attrs=array()) {

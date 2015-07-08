@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 class ImageWidget extends Widget {
 	function render($name,$value,$attrs=array(),$path) {
 		return '<div class="fileinput fileinput-'.($value==''? 'new' : 'exists').'" data-provides="fileinput">

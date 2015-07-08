@@ -1,6 +1,6 @@
 <?php
-namespace templates\forms;
-use templates\forms\widgets\HiddenInputWidget;
+namespace penguin\forms;
+use penguin\forms\widgets\HiddenInputWidget;
 class FormFieldProxy {
 	private $form;
 	public $field;

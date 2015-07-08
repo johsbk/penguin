@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 class TextareaWidget extends Widget {
 	function render($name,$value,$attrs=array()) {
 		$attrs['name']=$name;

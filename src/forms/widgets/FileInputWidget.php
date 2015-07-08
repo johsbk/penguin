@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 class FileInputWidget extends Widget {
 	function render($name,$value,$attrs=array(),$path) {
 		$attrs['name']=$name;

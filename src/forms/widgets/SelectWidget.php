@@ -1,5 +1,5 @@
 <?php
-namespace templates\forms\widgets;
+namespace penguin\forms\widgets;
 class SelectWidget extends Widget {
 	var $emptylabel;
 	function __construct($emptyLabel='----------') {

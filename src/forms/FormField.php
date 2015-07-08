@@ -1,6 +1,6 @@
 <?php
-namespace templates\forms;
-use \templates\html\HtmlObject;
+namespace penguin\forms;
+use \penguin\html\HtmlObject;
 abstract class FormField {
 	var $widget = null;
 	var $required = true;

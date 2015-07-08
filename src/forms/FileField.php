@@ -1,6 +1,6 @@
 <?php
-namespace templates\forms;
-use templates\forms\widgets\FileInputWidget;
+namespace penguin\forms;
+use penguin\forms\widgets\FileInputWidget;
 class FileField extends FormField {
 	var $path;
 	function __construct($dict=array()) {
