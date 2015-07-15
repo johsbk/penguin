@@ -16,7 +16,8 @@ class Project {
 			}
 		}
 	}
-	private function runJobs() {		
+	private function runJobs() {	
+		echo getmypid();	
 		$jq = \penguin\jobs\JobQueue::getInstance();
 		echo "starting jobs\n";
 		$jq->runJobs();
