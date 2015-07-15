@@ -19,10 +19,11 @@ class Project {
 	private function runJobs() {
 		$pidfile = 'runjobs.pid';
 		if (file_exists($pidfile)) {
-			echo "$pidfile exists already";
+			echo "$pidfile exists already\n";
 		} 
 		file_put_contents($pidfile, getmypid());
 		register_shutdown_function(function () use ($pidfile) {
+			echo "deleting pid file\n";
 			unlink($pidfile);
 		});  
 		$jq = \penguin\jobs\JobQueue::getInstance();
