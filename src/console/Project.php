@@ -23,7 +23,7 @@ class Project {
 			$found = false;
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			    echo 'This is a server using Windows!';
-			    exit
+			    exit;
 			} else {
 				exec("ps $pid",$data);
 				$found = count($data) > 1;
