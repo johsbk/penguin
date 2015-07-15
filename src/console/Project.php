@@ -22,6 +22,9 @@ class Project {
 			echo "$pidfile exists already";
 		} 
 		file_put_contents($pidfile, getmypid());
+		register_shutdown_function(function () use ($pidfile) {
+			unlink($pidfile);
+		});  
 		$jq = \penguin\jobs\JobQueue::getInstance();
 		echo "starting jobs\n";
 		$jq->runJobs();
