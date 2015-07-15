@@ -19,12 +19,13 @@ class Project {
 	private function runJobs() {
 		$pidfile = 'runjobs.pid';
 		if (file_exists($pidfile)) {
-			echo "$pidfile exists already\n";
 			$pid = file_get_contents($pidfile);
-			echo $pid;
 			exec("ps $pid",$data);
-			print_r($data);
-			exit;
+			if (count($data)>1) {
+				echo "Process already running\n";
+
+				exit;
+			}
 		} 
 		file_put_contents($pidfile, getmypid());
 		register_shutdown_function(function () use ($pidfile) {
