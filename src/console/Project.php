@@ -22,7 +22,8 @@ class Project {
 			$pid = file_get_contents($pidfile);
 			$found = false;
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			    echo 'This is a server using Windows!';
+			    exec("tasklist /fi \"PID eq $pid",$data);
+			    print_r($data);
 			    exit;
 			} else {
 				exec("ps $pid",$data);
