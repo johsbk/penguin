@@ -23,8 +23,7 @@ class Project {
 			$found = false;
 			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			    exec("tasklist /fi \"PID eq $pid",$data);
-			    print_r($data);
-			    exit;
+			    $found = count($data) > 1;
 			} else {
 				exec("ps $pid",$data);
 				$found = count($data) > 1;
