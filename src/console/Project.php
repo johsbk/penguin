@@ -16,8 +16,12 @@ class Project {
 			}
 		}
 	}
-	private function runJobs() {	
-		echo getmypid();	
+	private function runJobs() {
+		$pidfile = 'runjobs.pid';
+		if (file_exists($pidfile)) {
+			echo "$pidfile exists already";
+		} 
+		file_put_contents($pidfile, getmypid());
 		$jq = \penguin\jobs\JobQueue::getInstance();
 		echo "starting jobs\n";
 		$jq->runJobs();
