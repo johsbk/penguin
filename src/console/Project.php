@@ -20,8 +20,15 @@ class Project {
 		$pidfile = 'runjobs.pid';
 		if (file_exists($pidfile)) {
 			$pid = file_get_contents($pidfile);
-			exec("ps $pid",$data);
-			if (count($data)>1) {
+			$found = false;
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			    echo 'This is a server using Windows!';
+			    exit
+			} else {
+				exec("ps $pid",$data);
+				$found = count($data) > 1;
+			}
+			if ($found) {
 				echo "Process already running\n";
 
 				exit;
