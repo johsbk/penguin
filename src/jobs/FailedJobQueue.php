@@ -13,7 +13,7 @@ class FailedJobQueue extends JobQueue {
 
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 			} catch (\Exception $e) {				
-				Analog::log($e->getMessage().' '.$e->getTraceAsString());
+				Analog::log($e);
 				echo "Exception caught: ".$e->getMessage()."\n";
 				exit();
 				echo "done\n";

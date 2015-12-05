@@ -33,7 +33,7 @@ class JobQueue extends Singleton {
 				if ($obj instanceof Job)
 					$obj->run();
 			} catch (\Exception $e) {
-				Analog::log($e->getMessage().' '.$e->getTraceAsString());
+				Analog::log($e);
 				echo 'Exception caught: '.$e->getMessage()."\n";
 				$fjq = FailedJobQueue::getInstance();
 				$fjq->add($obj);
