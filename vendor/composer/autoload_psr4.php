@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Penguin\\' => array($baseDir . '/src'),
+    'penguin\\' => array($baseDir . '/src'),
 );
