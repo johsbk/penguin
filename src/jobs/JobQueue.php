@@ -3,6 +3,7 @@ namespace penguin\jobs;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use penguin\patterns\Singleton;
+use Analog\Analog;
 class JobQueue extends Singleton {
 	protected $queue_name = 'job_queue';
 	protected $conn;

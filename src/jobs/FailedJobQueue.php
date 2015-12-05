@@ -1,5 +1,6 @@
 <?php
 namespace penguin\jobs;
+use Analog\Analog;
 class FailedJobQueue extends JobQueue {
 	protected $queue_name = 'failed_job_queue';
 	function runJobs() {
@@ -11,7 +12,8 @@ class FailedJobQueue extends JobQueue {
 					$obj->run();
 
 				$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-			} catch (\Exception $e) {
+			} catch (\Exception $e) {				
+				Analog::log($e->getMessage().' '.$e->getTraceAsString());
 				echo "Exception caught: ".$e->getMessage()."\n";
 				exit();
 				echo "done\n";
