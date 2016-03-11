@@ -47,7 +47,7 @@ class JobQueue extends Singleton {
 			while(count($this->channel->callbacks)) {
 				$this->channel->wait(null,false,60);
 			}
-		} catch (PhpAmqpLib\Exception\AMQPTimeoutException $e) {
+		} catch (AMQPTimeoutException $e) {
 			echo 'timing out. finished running jobs';
 		}
 	}
