@@ -43,7 +43,8 @@ class JobQueue extends Singleton {
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
 		while(count($this->channel->callbacks)) {
-			$this->channel->wait();
+			$this->channel->wait(null,false,60);
 		}
+		echo 'finished running jobs';
 	}
 }
