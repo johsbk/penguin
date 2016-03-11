@@ -2,6 +2,7 @@
 namespace penguin\jobs;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Exception\AMQPTimeoutException;
 use penguin\patterns\Singleton;
 use Analog\Analog;
 class JobQueue extends Singleton {
@@ -42,9 +43,12 @@ class JobQueue extends Singleton {
 		};
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
-		while(count($this->channel->callbacks)) {
-			$this->channel->wait(null,false,60);
+		try {
+			while(count($this->channel->callbacks)) {
+				$this->channel->wait(null,false,60);
+			}
+		} catch (PhpAmqpLib\Exception\AMQPTimeoutException $e) {
+			echo 'timing out. finished running jobs';
 		}
-		echo 'finished running jobs';
 	}
 }
