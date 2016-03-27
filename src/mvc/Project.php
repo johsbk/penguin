@@ -9,13 +9,16 @@ use penguin\Mail\MailService;
 class Project {
 	private $env = null;
 	private $preparetwig = null;
+	var $defaultLocale = 'auto';
 	function __construct() {
 	}
 	function detectEnvironment($dict) {
 		foreach ($dict as $env=>$hosts) if (in_array(gethostname(), $hosts)) $this->env = $env;
 		define('DEBUG',$this->env == 'local');
 	}
-	var $defaultLocale = 'auto';
+	function setEnvironment($env) {
+		$this->env = $env;
+	}
 	function initDatabase() {
 		if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/database.php'))
 			$settings = require($config);
