@@ -34,6 +34,8 @@ class Project {
 		Registry::getInstance()->urls = $routes;
 	}
 	function run() {
+		
+
 		$this->initDatabase();
 		$this->initRoutes();
 		$loader = new \Twig_Loader_Filesystem(array(SITE_PATH.'/src/twigs/',SITE_PATH.'/vendor/johsbk/penguin/src/twigs/'));

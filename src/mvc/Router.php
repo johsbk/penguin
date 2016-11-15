@@ -92,6 +92,7 @@ class Router {
 	 	return false;
 	 }
 	 private function solveRoute($route,$urls,$oldmatches=array()) {
+
 	 	$prepadding = array_shift($urls);
 	 	foreach ($urls as $url) {
         	list ($reg,$path) = $url;
@@ -120,6 +121,9 @@ class Router {
 	private function getController($route) {
 	        /*** get the route from the url ***/
 	        $urls = Registry::getInstance()->urls;
+	        if (strlen($route)>0 && $route[0]=='/') {
+		 		$route = substr($route,1);
+		 	}
 	        $path = $this->solveRoute($route,$urls);       
 	        if (!$path) {
 	        	header('HTTP/1.0 404 Not Found');
