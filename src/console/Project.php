@@ -18,6 +18,8 @@ class Project
                 case 'runfailedjobs':
                     $this->runFailedJobs();
                     break;
+                case 'penguin':
+                    break;
                 default:
                     throw new \InvalidArgumentException("Unknown argument: ".$arg);
             }
