@@ -16,8 +16,8 @@ class FailedJobQueue extends JobQueue {
 				Analog::log($e);
 				echo "Exception caught: ".$e->getMessage()."\n";
 				exit();
-				echo "done\n";
 			}
+			echo "done\n";
 		};
 		$this->channel->basic_qos(null,1,null);
 		$this->channel->basic_consume($this->queue_name,'',false,false,false,false,$cb);
