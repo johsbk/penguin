@@ -19,7 +19,7 @@ class Project
                     $this->runFailedJobs();
                     break;
                 default:
-                    throw new \IllegalArgumentException("Unknown argument: ".$arg);
+                    throw new \InvalidArgumentException("Unknown argument: ".$arg);
             }
         }
     }
