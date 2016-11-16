@@ -401,29 +401,31 @@ a.progressCancel:hover {
 <div style="width: 500px; height: 500px;">
 <?php 
 echo $this->path;
-$mediapath = SITE_PATH."/media/";
+$mediapath = SITE_PATH.'/media/';
 $dir = new DirectoryIterator($mediapath);
-echo "<table id=\"directory\">";
+echo '<table id="directory">';
 
-echo "<tr>";
-$i=0;
-$picformats = array('png','jpg','gif');
+echo '<tr>';
+$i = 0;
+$picformats = array('png', 'jpg', 'gif');
 foreach ($dir as $file) {
-	if (!$dir->isDot()) {
-		$path = URL_PATH.'/media/'.$file;
-		if (strlen($file)>4 && in_array(substr($file,-3),$picformats)) {
-			$picture = $path;
-		} else {
-			$picture = "";
-		}
-		if ($i++%7==0) echo "</tr><tr>";
-		echo "<td data-path=\"$path\" data-type=\"".($dir->isDir() ? 'dir' : 'file')."\">
+    if (!$dir->isDot()) {
+        $path = URL_PATH.'/media/'.$file;
+        if (strlen($file) > 4 && in_array(substr($file, -3), $picformats)) {
+            $picture = $path;
+        } else {
+            $picture = '';
+        }
+        if ($i++ % 7 == 0) {
+            echo '</tr><tr>';
+        }
+        echo "<td data-path=\"$path\" data-type=\"".($dir->isDir() ? 'dir' : 'file')."\">
 			<img src=\"$picture\" /><br />
 			$file
 			</td>";
-	}
+    }
 }
-echo "</tr></table>";
+echo '</tr></table>';
 ?>
 </div>
 <div id="SWFU"></div>

@@ -1,5 +1,7 @@
 <?php
+
 namespace penguin\mail;
-class MailException extends \Exception {
-	
+
+class MailException extends \Exception
+{
 }

@@ -1,5 +1,8 @@
 <?php
+
 namespace penguin\forms;
-interface FormInterface {
-	static function init();
+
+interface FormInterface
+{
+    public static function init();
 }

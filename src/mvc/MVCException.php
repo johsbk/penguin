@@ -1,5 +1,7 @@
 <?php
+
 namespace penguin\mvc;
-class MVCException extends \Exception {
-	
+
+class MVCException extends \Exception
+{
 }

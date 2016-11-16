@@ -1,21 +1,28 @@
 <?php
+
 namespace penguin\db;
-class Query {
-	var $model;
-	var $where = array();
-	var $order_by = '';
-	var $limit;
-	var $start;
-	function __construct($model) {
-		$this->model = $model;
-	}
-	function add_q($q) {
-		$this->where[] = $q->as_sql($this->model);
-	}
-	function add_negate_q($q) {
-		$this->where[] = 'NOT ('.$q->as_sql($this->model).')';
-	}
-	function compiler() {
-		return new SQLCompiler($this);
-	}
+
+class Query
+{
+    public $model;
+    public $where = array();
+    public $order_by = '';
+    public $limit;
+    public $start;
+    public function __construct($model)
+    {
+        $this->model = $model;
+    }
+    public function add_q($q)
+    {
+        $this->where[] = $q->as_sql($this->model);
+    }
+    public function add_negate_q($q)
+    {
+        $this->where[] = 'NOT ('.$q->as_sql($this->model).')';
+    }
+    public function compiler()
+    {
+        return new SQLCompiler($this);
+    }
 }

@@ -1,5 +1,7 @@
 <?php
+
 namespace penguin\model;
-class ModelException extends \Exception {
-	
+
+class ModelException extends \Exception
+{
 }

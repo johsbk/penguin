@@ -1,5 +1,7 @@
 <?php
+
 namespace penguin\mvc;
-class PatternNotFoundException extends \Exception {
-	
+
+class PatternNotFoundException extends \Exception
+{
 }
