@@ -15,6 +15,9 @@ class VarcharField extends ModelField
         }
         parent::__construct($dict);
     }
+    public static function createWithMaxLength($maxlength) {
+        return new VarcharField(array('maxlength' => $maxlength));
+    }
     public function getType()
     {
         return "varchar($this->maxlength)";

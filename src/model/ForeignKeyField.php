@@ -30,6 +30,9 @@ class ForeignKeyField extends UintField
 
         parent::__construct($dict);
     }
+    public static function createToModel($model) {
+        return new ForeignKeyField(array('model' => $model));
+    }
     public function get($value)
     {
         if (!isset($this->cache[$value])) {
