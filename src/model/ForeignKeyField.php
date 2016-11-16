@@ -13,20 +13,26 @@ class ForeignKeyField extends UintField
     {
         $this->model = Functions::nz($dict['model'], false);
         $test = debug_backtrace();
+        $classtraceindex = 1;
         if (strpos($this->model, '\\') === false) {
+            $orgmodel=$this->model;
             $pos = strrpos($test[1]['class'], '\\');
             $this->model = substr($test[1]['class'], 0, $pos + 1).$this->model;
-            //echo $this->_model;
+            if (substr($this->model,0,13)=='penguin\\model') {
+                $classtraceindex =2;
+                $pos = strrpos($test[2]['class'], '\\');
+                $this->model = substr($test[2]['class'], 0, $pos + 1).$orgmodel;
+            }
         }
         $model = $this->model;
         /* @var $model BaseModel */
         if (!class_exists($model)) {
             throw new ModelException("Class: $model doesn't exist");
         }
-        $mymodel = $test[1]['class'];
+        $mymodel = $test[$classtraceindex]['class'];
         $this->related_name = Functions::nz($dict['related_name'], $mymodel::getName());
         $model::init();
-        $model::addHas($test[1]['class'], $this);
+        $model::addHas($test[$classtraceindex]['class'], $this);
 
         parent::__construct($dict);
     }

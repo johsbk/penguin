@@ -10,4 +10,10 @@ class BooleanField extends EnumField
         $dict['default'] = 'false';
         parent::__construct($dict);
     }
+    public function set($value) {
+    	if (is_bool($value)) {
+    		return $value ? 'true' : 'false';
+    	}
+    	return $value;
+    }
 }
