@@ -21,12 +21,12 @@ class Qand
     }
     public function as_sql($model)
     {
-        $args = $this->args;
-        ksort($args);
-        $args = $this->_handleArgs($args);
+        $myargs = $this->args;
+        ksort($myargs);
+        $myargs = $this->_handleArgs($myargs);
         $lines = array();
-        $scope = $this->getNewScope();
-        $tmp = $this->_as_sql($model, $args, $scope);
+        $newscope = $this->getNewScope();
+        $tmp = $this->_as_sql($model, $myargs, $newscope);
         if ($tmp != '()') {
             $lines[] = $tmp;
         }
@@ -106,11 +106,9 @@ class Qand
                     
                 }
             }
-            if (!$found) {
-                if ($class = $model::has($k)) {
-                    $found = true;                    
-                    $exps[] = $this->solveReverseForeignKey($class,$scope,$v,$f);
-                }
+            if (!$found && $class = $model::has($k)) {
+                $found = true;                    
+                $exps[] = $this->solveReverseForeignKey($class,$scope,$v,$f);
             }
             if (!$found) {
                 throw new DBException(sprintf('Unknown field: %s in model: %s', $k, $model));

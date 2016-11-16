@@ -137,8 +137,8 @@ class QuerySet implements \Iterator
     }
     public function prefetch_related($name)
     {
-        $model = $this->model;
-        $field = $model::getField($name);
+        $mymodel = $this->model;
+        $field = $mymodel::getField($name);
         if (!$field instanceof ForeignKeyField) {
             throw new DBException($name.' is not a foreign key');
         }

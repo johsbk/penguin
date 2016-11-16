@@ -12,7 +12,7 @@ class ODBCResultSet
     public $result;
     public $numrow = 0;
     public $maxrow;
-    public function __construct($result, $query)
+    public function __construct($result)
     {
         $this->result = $result;
     }

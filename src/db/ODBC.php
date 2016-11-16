@@ -42,7 +42,7 @@ class ODBC
     {
         $var = self::query($query);
 
-        return new ODBCResultSet($var, $query);
+        return new ODBCResultSet($var);
     }
     public static function fetchArray($query)
     {
@@ -73,7 +73,7 @@ class ODBC
     {
         return self::fetchOne('SELECT * FROM '.$table.' ORDER BY id DESC LIMIT 0,1');
     }
-    public static function ezQuery($type, $table, $array, $where = '', $order = '', $limit = '')
+    public static function ezQuery($type, $table, $array, $where = '')
     {
         $qry = '';
         if ($type == 'INSERT') {

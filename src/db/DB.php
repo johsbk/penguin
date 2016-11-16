@@ -43,14 +43,13 @@ class DB
     public static function query($query, $firsttry = true)
     {
         if (!$var = mysqli_query(self::$conn, $query)) {
-            switch (mysqli_errno(self::$conn)) {
-                case 2006:
+            if (mysqli_errno(self::$conn)== 2006) {
                     self::connect();
                     if ($firsttry) {
                         return static::query($query, false);
                     }
-                default:
-                    throw new DBException('('.$query.') had an error: '.mysqli_error(self::$conn));
+            } else {
+                throw new DBException('('.$query.') had an error: '.mysqli_error(self::$conn));
             }
         }
         return $var;
@@ -109,7 +108,7 @@ class DB
 
         return mysqli_escape_string(self::$conn, $str);
     }
-    public static function ezQuery($type, $table, $array, $where = '', $order = '', $limit = '', $autoquotes = true)
+    public static function ezQuery($type, $table, $array, $where = '', $autoquotes = true)
     {
         $qry = '';
         if ($type == 'INSERT') {

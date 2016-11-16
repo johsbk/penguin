@@ -12,9 +12,9 @@ class BooleanField extends EnumField
         parent::__construct($dict);
     }
     public function set($value) {
-    	if (is_bool($value)) {
-    		return $value ? 'true' : self::FALSE;
-    	}
-    	return $value;
+        if (is_bool($value)) {
+            return $value ? 'true' : self::FALSE;
+        }
+        return $value;
     }
 }

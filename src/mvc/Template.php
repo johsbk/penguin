@@ -29,22 +29,22 @@ class Template
         $this->router = Registry::getInstance()->router;
         $app = $this->router->app;
         if (substr($app, 0, 9) == 'penguin') {
-            $path = IMPORT_PATH.substr($app, 10).'/views/'.$name.'.php';
+            $mypath = IMPORT_PATH.substr($app, 10).'/views/'.$name.'.php';
         } else {
-            $path = SITE_PATH.'/src/'.$app.'/views/'.$name.'.php';
+            $mypath = SITE_PATH.'/src/'.$app.'/views/'.$name.'.php';
         }
 
-        if (!file_exists($path)) {
-            throw new MVCException('Template not found in '.$path);
+        if (!file_exists($mypath)) {
+            throw new MVCException('Template not found in '.$mypath);
         }
         $t = $twig->loadTemplate('phptemplate.tpl');
-        $this->path = $path;
+        $this->path = $mypath;
         if (!isset($this->vars['context'])) {
             $this->vars['context'] = array();
         }
         $c = $this->vars;
 
-        $c['path'] = $path;
+        $c['path'] = $mypath;
         $t->display($c);
     }
 }

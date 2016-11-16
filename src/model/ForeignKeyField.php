@@ -63,8 +63,8 @@ class ForeignKeyField extends UintField
     }
     public function getFormField()
     {
-        $model = $this->model;
-        $f = new \penguin\forms\ModelChoiceField(array('queryset' => $model::all()));
+        $mymodel = $this->model;
+        $f = new \penguin\forms\ModelChoiceField(array('queryset' => $mymodel::all()));
         $f->name = $this->name;
         $f->dbname = $this->dbname;
 

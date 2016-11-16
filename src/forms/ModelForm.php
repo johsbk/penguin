@@ -44,12 +44,12 @@ class ModelForm extends Form
     }
     public function save()
     {
-        $model = static::getModel();
+        $mymodel = static::getModel();
         $data = $this->cleaned_data;
         if (!$data['id']) {
             unset($data['id']);
         }
-        $object = $model::from($data);
+        $object = $mymodel::from($data);
         $object->save();
     }
 }

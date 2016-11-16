@@ -4,7 +4,7 @@ namespace penguin\forms\widgets;
 
 class DateInputWidget extends InputWidget
 {
-	const STR_CLASS = 'class';
+    const STR_CLASS = 'class';
     public $type = 'text';
     public function render($name, $value, $attrs = array())
     {

@@ -255,16 +255,17 @@ abstract class BaseModel
         } elseif ($one) {
             $sql .= ' LIMIT 0,1';
         }
+        $res = null;
         if ($count) {
             $q = DB::fetchOne($sql);
 
-            return $q['count'];
+            $res = $q['count'];
         } elseif ($one) {
             $q = DB::fetchOne($sql);
             if ($q) {
-                return new static($q);
+                $res = new static($q);
             } else {
-                return false;
+                $res = false;
             }
         } else {
             $rs = DB::fetch($sql);
@@ -273,8 +274,9 @@ abstract class BaseModel
                 $ar[] = new static($row);
             }
 
-            return $ar;
+            $res = $ar;
         }
+        return $res;
     }
     public static function first($dict = array())
     {

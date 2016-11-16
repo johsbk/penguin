@@ -10,38 +10,38 @@ use penguin\Import;
  * @author johs
  *
  * Form dictionary parameters:
- * table				The table in the database
- * where				An array of conjugated statements, i.e. $where[0] and $where[1] etc.
- * order				string of order in form: field1 [asc], field2 desc
- * fields				An array of field dictionaries, see Field dictionary
- * method				form method, i.e. post or get
- * deleteable			boolean, will add delete button if true, default true
- * addline				boolean, will add "add new" button if true, default true
- * action				form action, default Functions::getArgs()
- * submitlabel			Label of submit button
- * links				array of link dictionaries, see Link dictionary
- * subform				in form of a form dictionary
- * rowanchor			boolean, will add anchors with names for each rows, default false
- * displayheader		boolean, will add headers automatically, default false
- * type					'single' or 'continous', default is 'continous'
+ * table                The table in the database
+ * where                An array of conjugated statements, i.e. $where[0] and $where[1] etc.
+ * order                string of order in form: field1 [asc], field2 desc
+ * fields               An array of field dictionaries, see Field dictionary
+ * method               form method, i.e. post or get
+ * deleteable           boolean, will add delete button if true, default true
+ * addline              boolean, will add "add new" button if true, default true
+ * action               form action, default Functions::getArgs()
+ * submitlabel          Label of submit button
+ * links                array of link dictionaries, see Link dictionary
+ * subform              in form of a form dictionary
+ * rowanchor            boolean, will add anchors with names for each rows, default false
+ * displayheader        boolean, will add headers automatically, default false
+ * type                 'single' or 'continous', default is 'continous'
  *
  * Field dictionary parameters:
- * name					name of field in table
- * type					type of field, see field types
- * validate				a boolean closure function taking the submitted value
- * dict					dictionary depending on type
- * default				default value
- * width				width of field
+ * name                 name of field in table
+ * type                 type of field, see field types
+ * validate             a boolean closure function taking the submitted value
+ * dict                 dictionary depending on type
+ * default              default value
+ * width                width of field
  *
  * Field types:
- * combobox				will show combobox based on the dict
- * hidden				will hide
- * date					will show datepicker
- * checkbox				will show as checkbox
+ * combobox             will show combobox based on the dict
+ * hidden               will hide
+ * date                 will show datepicker
+ * checkbox             will show as checkbox
  *
  * Link dictionary:
- * url					url to goto on click, any instance of %id will be substituted to the row id
- * label				Label to link button
+ * url                  url to goto on click, any instance of %id will be substituted to the row id
+ * label                Label to link button
  */
 class Form
 {

@@ -28,6 +28,7 @@ class ComboBox
         $height = Functions::nz($dict['height'], false);
         $width = Functions::nz($dict['width'], false);
         $governs = Functions::nz($dict['governs'], false);
+        $list = Functions::nz($dict['list'], false);
         $url = Functions::getArgs($governs)."&{$governs}=%id";
         $out[] = '<select';
         if ($class) {
@@ -83,7 +84,7 @@ class ComboBox
         $default = Functions::nz($dict['default'], false);
         $firstoption = Functions::nz($dict['firstoption'], false);
         $governs = Functions::nz($dict['governs'], false);
-        $out = static::displayAttributes($dict);
+        $out = static::displayElementStart($dict);
         
         if ($firstoption) {
             if (!is_array($firstoption)) {

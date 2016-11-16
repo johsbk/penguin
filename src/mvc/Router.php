@@ -8,6 +8,7 @@ use penguin\common\Functions;
 class Router
 {
     const INDEX = 'index';
+    const USERS = 'users';
     private $path;
     public $file;
     public $controller;
@@ -74,7 +75,7 @@ class Router
              } else {
                  throw new MVCException('Unknown rule: '.$rule[0]);
              }
-             if (!isset($rule['users']) || $rule['users'] == '*' || ($rule['users'] == '@' && Auth::isLoggedin())) {
+             if (!isset($rule[self::USERS]) || $rule[self::USERS] == '*' || ($rule[self::USERS] == '@' && Auth::isLoggedin())) {
                  if (!isset($rule['actions']) || in_array($action, $rule['actions'])) {
                      return $result;
                  }
@@ -141,17 +142,17 @@ class Router
     public function reverseLookup($view, $args = array())
     {
         if (isset($this->urlCache[$view])) {
-            $path = $this->urlCache[$view];
+            $mypath = $this->urlCache[$view];
         } else {
-            $path = $this->_reverseLookup(Registry::getInstance()->urls, $view);
-            $this->urlCache[$view] = $path;
+            $mypath = $this->_reverseLookup(Registry::getInstance()->urls, $view);
+            $this->urlCache[$view] = $mypath;
         }
-        if (!$path) {
+        if (!$mypath) {
             return '';
         }
         $url = URL_PATH.'/';
 
-        foreach ($path as $subpath) {
+        foreach ($mypath as $subpath) {
             if ($subpath{0} == '^') {
                 $subpath = substr($subpath, 1);
             }
@@ -176,8 +177,8 @@ class Router
         }
         foreach ($urls as $url) {
             if (is_array($url[1])) {
-                if ($path = $this->_reverseLookup($url[1], $view, array_merge($pre, array($url[0])))) {
-                    return $path;
+                if ($mypath = $this->_reverseLookup($url[1], $view, array_merge($pre, array($url[0])))) {
+                    return $mypath;
                 }
             } else {
                 if ($view == $padding.$url[1]) {
