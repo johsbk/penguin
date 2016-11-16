@@ -7,6 +7,7 @@ use penguin\common\Functions;
 
 class Router
 {
+    const INDEX = 'index';
     private $path;
     public $file;
     public $controller;
@@ -46,7 +47,7 @@ class Router
          $controller = new $class();
                 /*** check if the action is callable ***/
                 if (!is_callable(array($controller, $this->action))) {
-                    $action = 'index';
+                    $action = self::INDEX;
                 } else {
                     $action = $this->action;
                 }
@@ -128,7 +129,7 @@ class Router
             $this->args = $matches;
         }
     }
-    public function getLink($controller = 'index', $action = 'index', $dict = array())
+    public function getLink($controller = self::INDEX, $action = self::INDEX, $dict = array())
     {
         $str = URL_PATH."/$controller/$action/";
         foreach ($dict as $v) {

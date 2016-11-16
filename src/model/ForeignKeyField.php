@@ -6,6 +6,7 @@ use penguin\common\Functions;
 
 class ForeignKeyField extends UintField
 {
+    const STR_CLASS='class';
     public $model;
     public $related_name;
     public $cache = array();
@@ -16,12 +17,12 @@ class ForeignKeyField extends UintField
         $classtraceindex = 1;
         if (strpos($this->model, '\\') === false) {
             $orgmodel=$this->model;
-            $pos = strrpos($test[1]['class'], '\\');
-            $this->model = substr($test[1]['class'], 0, $pos + 1).$this->model;
+            $pos = strrpos($test[1][self::STR_CLASS], '\\');
+            $this->model = substr($test[1][self::STR_CLASS], 0, $pos + 1).$this->model;
             if (substr($this->model,0,13)=='penguin\\model') {
                 $classtraceindex =2;
-                $pos = strrpos($test[2]['class'], '\\');
-                $this->model = substr($test[2]['class'], 0, $pos + 1).$orgmodel;
+                $pos = strrpos($test[2][self::STR_CLASS], '\\');
+                $this->model = substr($test[2][self::STR_CLASS], 0, $pos + 1).$orgmodel;
             }
         }
         $model = $this->model;
@@ -29,10 +30,10 @@ class ForeignKeyField extends UintField
         if (!class_exists($model)) {
             throw new ModelException("Class: $model doesn't exist");
         }
-        $mymodel = $test[$classtraceindex]['class'];
+        $mymodel = $test[$classtraceindex][self::STR_CLASS];
         $this->related_name = Functions::nz($dict['related_name'], $mymodel::getName());
         $model::init();
-        $model::addHas($test[$classtraceindex]['class'], $this);
+        $model::addHas($test[$classtraceindex][self::STR_CLASS], $this);
 
         parent::__construct($dict);
     }

@@ -17,34 +17,17 @@ class ComboBox
 
         return '<script src="'.TEMPLATE_MEDIA_PATH.'form/js/ComboBox.js" type="text/javascript"></script>';
     }
-    /**
-     * @param $dict
-     *
-     * @return string
-     */
-    public static function display($dict)
-    {
+    private static function displayElementStart($dict) {
+        $out = [];
         $class = Functions::nz($dict['class'], false);
-        $rs = Functions::nz($dict['rs'], false);
-        $array = Functions::nz($dict['array'], false);
-        $model = Functions::nz($dict['model'], false);
-        if ($rs === false && $array === false && $model === false) {
-            throw new FormException('ComboBox: no rs,model or array supplied!');
-        }
-        $governs = Functions::nz($dict['governs'], false);
-        $hidden = Functions::nz($dict['hidden'], 'id');
-        $shown = Functions::nz($dict['shown'], 'name');
         $name = Functions::nz($dict['name'], false);
         $id = Functions::nz($dict['id'], false);
-        $width = Functions::nz($dict['width'], false);
-        $default = Functions::nz($dict['default'], false);
-        $firstoption = Functions::nz($dict['firstoption'], false);
-        $onchange = Functions::nz($dict['onchange'], false);
-        $list = Functions::nz($dict['list'], false);
-        $height = Functions::nz($dict['height'], false);
-        $disabled = Functions::nz($dict['disabled'], false);
         $goto = Functions::nz($dict['goto'], false);
-        $out = array();
+        $disabled = Functions::nz($dict['disabled'], false);
+        $onchange = Functions::nz($dict['onchange'], false);
+        $height = Functions::nz($dict['height'], false);
+        $width = Functions::nz($dict['width'], false);
+        $governs = Functions::nz($dict['governs'], false);
         $url = Functions::getArgs($governs)."&{$governs}=%id";
         $out[] = '<select';
         if ($class) {
@@ -80,6 +63,28 @@ class ComboBox
         }
         $out[] = '"';
         $out[] = '>';
+        return $out;
+    }
+    /**
+     * @param $dict
+     *
+     * @return string
+     */
+    public static function display($dict)
+    {
+        $rs = Functions::nz($dict['rs'], false);
+        $array = Functions::nz($dict['array'], false);
+        $model = Functions::nz($dict['model'], false);
+        if ($rs === false && $array === false && $model === false) {
+            throw new FormException('ComboBox: no rs,model or array supplied!');
+        }
+        $hidden = Functions::nz($dict['hidden'], 'id');
+        $shown = Functions::nz($dict['shown'], 'name');
+        $default = Functions::nz($dict['default'], false);
+        $firstoption = Functions::nz($dict['firstoption'], false);
+        $governs = Functions::nz($dict['governs'], false);
+        $out = static::displayAttributes($dict);
+        
         if ($firstoption) {
             if (!is_array($firstoption)) {
                 throw new FormException('Fix firstoption!');
@@ -109,11 +114,14 @@ class ComboBox
     {
         $out = array();
         $out[] = '<option';
-        if (($governs && isset($_GET[$governs]) && $_GET[$governs] == $row[$hidden]) || ($default && $row[$hidden] == $default)) {
+        if (static::doesGovern($governs,$row[$hidden]) || ($default && $row[$hidden] == $default)) {
             $out[] = ' selected="selected"';
         }
         $out[] = " value=\"{$row[$hidden]}\">{$row[$shown]}</option>";
 
         return implode("\n", $out);
+    }
+    private static function doesGovern($governs,$value) {
+        return $governs && isset($_GET[$governs]) && $_GET[$governs] == $value;
     }
 }

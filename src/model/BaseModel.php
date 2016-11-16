@@ -9,6 +9,8 @@ use Exception;
 
 abstract class BaseModel
 {
+    const WHERE = 'where';
+    const SHORT = 'short';
     public static $_name = array();
     public static $_fields = array();
     public static $_indexes = array();
@@ -41,9 +43,15 @@ abstract class BaseModel
     }
     public function __isset($var)
     {
-        return (isset(static::${$var}) && static::${$var} instanceof ModelField)
-            || (($pos = strpos($var, '_id')) !== false && isset(static::${$subvar = substr($var, 0, $pos)}))
+        return $this->issetModelField($var)
+            || static::issetForeignKeyField($var)
             || static::has($var);
+    }
+    private function issetModelField($var) {
+        return isset(static::${$var}) && static::${$var} instanceof ModelField;
+    }
+    private function issetForeignKeyField($var) {
+        return ($pos = strpos($var, '_id')) !== false && isset(static::${$subvar = substr($var, 0, $pos)});
     }
     public function __get($var)
     {
@@ -64,10 +72,10 @@ abstract class BaseModel
         if ($class = static::has($method)) {
             list($m, $f) = $class;
             $dict = $params[0];
-            if (!isset($dict['where'])) {
-                $dict['where'] = array();
+            if (!isset($dict[self::WHERE])) {
+                $dict[self::WHERE] = array();
             }
-            $dict['where'][] = "$f->dbname={$this->row['id']}";
+            $dict[self::WHERE][] = "$f->dbname={$this->row['id']}";
 
             return $m::all($dict);
         } else {
@@ -218,7 +226,7 @@ abstract class BaseModel
     public static function find($find, $dict = array())
     {
         static::init();
-        $where = Functions::nz($dict['where'], array());
+        $where = Functions::nz($dict[self::WHERE], array());
         $order = Functions::nz($dict['order'], false);
         $limit = Functions::nz($dict['limit'], false);
         $one = Functions::nz($dict['one'], false);
@@ -314,85 +322,7 @@ abstract class BaseModel
     {
         return $this->row['id'];
     }
-    private static function toXMLFields($model, $short)
-    {
-        $out = array();
-        $out[] = '<fields>';
-        $table = $model::getName();
-
-        if (!$short) {
-            $short = $table;
-        }
-        foreach ($model::getFields() as $f) {
-            $fullname = $short.'.'.$f->dbname;
-            $out[] = "\t<field fullname=\"$fullname\" name=\"$f->dbname\" table=\"$short\" realtable=\"{$table}\" type=\"".$f->getFormType().'" dbtype="'.$f->getType().'" unique="id" />';
-        }
-        $out[] = '</fields>';
-
-        return implode("\n", $out);
-    }
-    public static function toXML($find, $options = array())
-    {
-        $res = static::find($find, $options);
-        $short = Functions::nz($options['short'], false);
-        $include = Functions::nz($options['include'], array());
-        $out = array();
-        $out[] = '<?xml version="1.0"?>';
-        $out[] = '<response>';
-        if ($res) {
-            if (!is_array($res)) {
-                $res = array($res);
-                $count = 1;
-            } else {
-                $count = count($res);
-            }
-        } else {
-            $count = 0;
-        }
-        $out[] = "<count>$count</count>";
-        //subqueries
-        foreach ($include as $subname => $suboptions) {
-            $subshort = Functions::nz($suboptions['short'], $subname);
-            if ($tmp = static::has($subname)) {
-                list($class, $fc) = $tmp;
-                $out[] = "<subquery name=\"$subname\">";
-                $out[] = static::toXMLFields($class, $subshort);
-                $out[] = '</subquery>';
-            }
-        }
-        // Fields
-        $out[] = static::toXMLFields(get_called_class(), $short);
-        // Data
-        if ($res) {
-            foreach ($res as $m) {
-                $out[] = '<row>';
-                foreach (static::getFields() as $f) {
-                    $fullname = $short.'.'.$f->dbname;
-                    $out[] = "\t<col name=\"$f->name\" table=\"$short\" fullname=\"$fullname\">".static::cleanString($m->{$f->name}).'</col>';
-                }
-                foreach ($include as $subname => $suboptions) {
-                    $subshort = Functions::nz($suboptions['short'], $subname);
-                    if ($tmp = static::has($subname)) {
-                        list($class, $fc) = $tmp;
-                        $out[] = "<subquery name=\"$subname\">";
-                        foreach ($m->{$subname}($suboptions) as $subm) {
-                            $out[] = '<row>';
-                            foreach ($subm::getFields() as $f) {
-                                $fullname = $subshort.'.'.$f->dbname;
-                                $out[] = "\t<col name=\"$f->name\" table=\"$subshort\" fullname=\"$fullname\">".static::cleanString($subm->{$f->name}).'</col>';
-                            }
-                            $out[] = '</row>';
-                        }
-                        $out[] = '</subquery>';
-                    }
-                }
-                $out[] = '</row>';
-            }
-        }
-        $out[] = '</response>';
-
-        return implode("\n", $out);
-    }
+    
     public static function cleanString($str)
     {
         $from = array('&');

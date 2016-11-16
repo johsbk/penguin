@@ -8,6 +8,7 @@ use penguin\Mail\MailService;
 
 class Project
 {
+    const I18N = 'i18n/';
     private $env = null;
     private $preparetwig = null;
     public $defaultLocale = 'auto';
@@ -93,18 +94,18 @@ class Project
             $languages = explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             foreach ($languages as $lang) {
                 list($locale) = explode(',', $lang);
-                if (file_exists('i18n/'.$locale.'.ini')) {
+                if (file_exists(self::I18N.$locale.'.ini')) {
                     $reg->locale = $locale;
                     break;
                 }
             }
         } else {
-            if (file_exists('i18n/'.$locale.'.ini')) {
+            if (file_exists(self::I18N.$locale.'.ini')) {
                 $reg->locale = $locale;
             }
         }
         if ($reg->locale != 'en-US') {
-            $reg->translation = parse_ini_file('i18n/'.$locale.'.ini');
+            $reg->translation = parse_ini_file(self::I18N.$locale.'.ini');
         } else {
             $reg->translation = array();
         }

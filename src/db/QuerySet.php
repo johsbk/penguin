@@ -6,13 +6,14 @@ use penguin\model\ForeignKeyField;
 
 class QuerySet implements \Iterator
 {
+    const MODEL = 'model';
     public $query;
     public $model;
     private $_result_cache;
     private $position = 0;
     public function __construct($dict = array())
     {
-        $this->model = isset($dict['model']) ? $dict['model'] : null;
+        $this->model = isset($dict[self::MODEL]) ? $dict[self::MODEL] : null;
         $this->query = isset($dict['query']) ? $dict['query'] : new Query($this->model);
     }
     public function filter($dict = array())
@@ -141,7 +142,7 @@ class QuerySet implements \Iterator
         if (!$field instanceof ForeignKeyField) {
             throw new DBException($name.' is not a foreign key');
         }
-        $queryset = new self(['model' => $field->model]);
+        $queryset = new self([self::MODEL => $field->model]);
         $q = $this->query->compiler()->as_sql('SELECT t0.'.$field->dbname);
         $queryset = $queryset->filter(['id__in' => $q]);
         foreach ($queryset as $row) {

@@ -4,6 +4,7 @@ namespace penguin\db;
 
 class SQLCompiler
 {
+    const STR_AND = ' AND ';
     public $query;
     public function __construct($query)
     {
@@ -14,7 +15,7 @@ class SQLCompiler
         $model = $this->query->model;
         $where = '';
         if (count($this->query->where) > 0) {
-            $where = 'AND '.implode(' AND ', $this->query->where);
+            $where = 'AND '.implode(self::STR_AND, $this->query->where);
         }
         if ($this->query->limit) {
             $start = $this->query->start ? $this->query->start : 0;
@@ -31,7 +32,7 @@ class SQLCompiler
             $order_by = 'ORDER BY '.$order_by;
         }
         if ($joins) {
-            $joins = ' AND '.$joins;
+            $joins = self::STR_AND.$joins;
         }
         if ($select == 'DELETE') {
             $sql = "$select FROM t0 USING $tablestr WHERE 0=0 $joins $where $order_by $limit";
@@ -66,7 +67,7 @@ class SQLCompiler
             }
         }
 
-        return array($tables, implode(' AND ', $joins), implode(',', $order));
+        return array($tables, implode(self::STR_AND, $joins), implode(',', $order));
     }
     public function addTable($model, &$tables, &$joins, &$order, $a, $tindex, $desc)
     {
