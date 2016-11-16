@@ -59,7 +59,7 @@ class QuerySet implements \Iterator
         if ($this->_result_cache) {
             return count($this->_result_cache) > 0;
         } else {
-            return $this->first() ? true : false;
+            return $this->first();
         }
     }
     public function order_by($order_by)

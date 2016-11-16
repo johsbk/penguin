@@ -67,9 +67,7 @@ class ODBC
     public static function fetchOne($query)
     {
         $rs = self::fetch($query);
-        $res = $rs->next();
-
-        return $res;
+        return $rs->next();
     }
     public static function getLastEntry($table)
     {

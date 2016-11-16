@@ -34,7 +34,6 @@ class ModelForm extends Form
         if (strpos(static::$model, '\\') === false) {
             $pos = strpos($class, '\\');
             self::$_model = substr($class, 0, $pos + 1).'models\\'.static::$model;
-            //echo $this->_model;
         }
         /* @var $model BaseModel */
         if (!class_exists(self::$_model)) {

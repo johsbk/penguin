@@ -18,10 +18,10 @@ class Profiles extends BaseModel
     protected static function localinit()
     {
         self::$id = new IdField();
-        self::$name = new VarcharField(array('maxlength' => 50));
-        self::$password = new VarcharField(array('maxlength' => 100));
-        self::$email = new VarcharField(array('maxlength' => 100));
-        self::$fullname = new VarcharField(array('maxlength' => 100));
+        self::$name = VarcharField::createWithMaxLength(50);
+        self::$password = VarcharField::createWithMaxLength(100);
+        self::$email = VarcharField::createWithMaxLength(100);
+        self::$fullname = VarcharField::createWithMaxLength(100);
         self::$salt = new VarcharField();
         self::addHas('ProfileRights');
         self::addHas('GroupProfiles');
@@ -36,6 +36,9 @@ class Profiles extends BaseModel
         if ($q) {
             return true;
         }
+        return $this->checkGroupRight($right);
+    }
+    private function checkGroupRight($right) {
         $q = DB::fetchOne("SELECT * FROM group_rights gr, group_profiles gp WHERE gr.`right`=$right and allow='Deny' and gr.group_id=gp.group_id and gp.profile_id=".$this->id);
         if ($q) {
             return false;
@@ -44,6 +47,7 @@ class Profiles extends BaseModel
         if ($q) {
             return true;
         }
+        return false;   
     }
     public function inGroup($name)
     {

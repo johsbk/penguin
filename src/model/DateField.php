@@ -4,10 +4,7 @@ namespace penguin\model;
 
 class DateField extends ModelField
 {
-    public function __construct($dict = array())
-    {
-        parent::__construct($dict);
-    }
+    
     public function getType()
     {
         return 'date';

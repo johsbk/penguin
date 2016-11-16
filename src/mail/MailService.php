@@ -29,6 +29,6 @@ class MailService
         if ($htmlbody) {
             $message->addPart($htmlbody, 'text/html');
         }
-        $result = $mailer->send($message);
+        return $mailer->send($message);
     }
 }

@@ -33,7 +33,7 @@ class ODBCResultSet
             $res = 0;
             $tmp = $this->numrow;
             $this->moveFirst();
-            while ($row = $this->next()) {
+            while ($this->next()) {
                 $res++;
             }
             $this->numrow = $tmp;

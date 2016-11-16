@@ -4,10 +4,6 @@ namespace penguin\model;
 
 class ImageField extends FileField
 {
-    public function __construct($dict = array())
-    {
-        parent::__construct($dict);
-    }
     public function getFormType()
     {
         return 'image';

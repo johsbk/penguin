@@ -17,7 +17,6 @@ class DB
         self::$pass = $pass;
         self::$host = $host;
         self::$db = $db;
-        //$tmp = microtime(true);
         static::connect();
     }
     private static function connect()
@@ -28,14 +27,11 @@ class DB
         if (!mysqli_select_db(self::$conn, self::$db)) {
             throw new DBException('mysql_select_db error:'.mysqli_error(self::$conn));
         }
-        //$this->timespentindb += microtime(true) -$tmp;
         self::query("SET NAMES 'utf8'");
     }
     public static function logout()
     {
-        //$tmp = microtime(true);
         mysqli_close(self::$conn);
-        //this->timespentindb += microtime(true) -$tmp;
     }
     /**
      * Enter description here...
@@ -46,7 +42,6 @@ class DB
      */
     public static function query($query, $firsttry = true)
     {
-        //$tmp = microtime(true);
         if (!$var = mysqli_query(self::$conn, $query)) {
             switch (mysqli_errno(self::$conn)) {
                 case 2006:
@@ -58,7 +53,6 @@ class DB
                     throw new DBException('('.$query.') had an error: '.mysqli_error(self::$conn));
             }
         }
-        //$this->timespentindb += microtime(true) -$tmp;
         return $var;
     }
     /**
@@ -97,10 +91,7 @@ class DB
     public static function fetchOne($query)
     {
         $var = self::query($query);
-//		$tmp = microtime(true)-$tmp;
-        $res = mysqli_fetch_array($var);
-//		$this->timespentindb += microtime(true) -$tmp;
-        return $res;
+        return mysqli_fetch_array($var);
     }
     public static function getLastEntry($table)
     {

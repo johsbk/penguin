@@ -11,7 +11,4 @@ class Models
             $m::checkIntegrity();
         }
     }
-    public static function includeModels($pre = './')
-    {
-    }
 }

@@ -11,11 +11,7 @@ class ResultSet
     }
     public function next()
     {
-
-        //$tmp = microtime(true);
-        $res = mysqli_fetch_array($this->result);
-        //DB::timespentindb += microtime(true) -$tmp;
-        return $res;
+        return mysqli_fetch_array($this->result);
     }
     public function nextAssoc()
     {

@@ -16,18 +16,6 @@ class SQLCompiler
         if (count($this->query->where) > 0) {
             $where = 'AND '.implode(' AND ', $this->query->where);
         }
-        /*if ($this->query->order_by) {
-            if (substr($this->query->order_by,0,1)=="-") {
-                $order_by = substr($this->query->order_by,1);
-                $way = 'DESC';
-            } else {
-                $order_by = $this->query->order_by;
-                $way = 'ASC';
-            }
-            $order_by = "ORDER BY ".$order_by.' '.$way;
-        } else {
-            $order_by = '';
-        }*/
         if ($this->query->limit) {
             $start = $this->query->start ? $this->query->start : 0;
             $limit = "LIMIT $start, {$this->query->limit}";
@@ -50,7 +38,6 @@ class SQLCompiler
         } else {
             $sql = "$select FROM $tablestr WHERE 0=0 $joins $where $order_by $limit";
         }
-        //echo $sql;
         return $sql;
     }
     public function tables($model, $order_by)
@@ -101,7 +88,6 @@ class SQLCompiler
     }
     public function count()
     {
-        //throw new \Exception($this->as_sql('SELECT count(*) as count'));
         $q = DB::fetchOne($this->as_sql('SELECT count(*) as count'));
 
         return $q['count'];

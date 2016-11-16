@@ -24,7 +24,7 @@ class Router
     {
 
         /*** check if path is a directory ***/
-        if (is_dir($path) == false) {
+        if (!is_dir($path)) {
             throw new MVCException('Invalid controller path: `'.$path.'`');
         }
         /*** set the path ***/
@@ -119,7 +119,7 @@ class Router
         $this->args = array();
         $controller = substr($path, 0, $ld = strrpos($path, '.'));
         $controller = substr($controller, 0, $sld = strrpos($controller, '.')).'.controllers'.substr($controller, $sld);
-        $i = 0;
+        
         $this->controller = str_replace('.', '\\', $controller);
 
         $this->app = str_replace('.', '/', substr($controller, 0, $sld));
@@ -131,8 +131,7 @@ class Router
     public function getLink($controller = 'index', $action = 'index', $dict = array())
     {
         $str = URL_PATH."/$controller/$action/";
-        //if (count($dict)>0) $str.= "?";
-        foreach ($dict as $k => $v) {
+        foreach ($dict as $v) {
             $str .= "$v/";
         }
 
@@ -149,7 +148,6 @@ class Router
         if (!$path) {
             return '';
         }
-        //print_r($path);
         $url = URL_PATH.'/';
 
         foreach ($path as $subpath) {
@@ -188,7 +186,6 @@ class Router
         }
 
         return false;
-        //print_r($urls);
     }
     public function redirect($to = '')
     {

@@ -36,14 +36,12 @@ class Auth
     public static function login($username, $password)
     {
         $p = Profiles::first(array('name' => $username));
-        if ($p) {
-            if (self::checkHashedPassword($password, $p->password, $p->salt)) {
-                self::$profile = $p;
-                self::$loggedin = true;
-                self::end();
+        if ($p && self::checkHashedPassword($password, $p->password, $p->salt)) {
+            self::$profile = $p;
+            self::$loggedin = true;
+            self::end();
 
-                return true;
-            }
+            return true;
         }
 
         return false;

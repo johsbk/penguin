@@ -23,9 +23,7 @@ class Functions
 
         $str = preg_replace(array('/\s+/', '/[^A-Za-z0-9\-]/'), array('-', ''), $str);
 
-        $str = trim(strtolower($str));
-
-        return $str;
+        return trim(strtolower($str));
     }
     public static function phpSelf()
     {
@@ -43,9 +41,7 @@ class Functions
         if (!is_numeric($number)) {
             $number = 0;
         }
-        $tmp = number_format($number, $digs, ',', '.');
-
-        return $tmp;
+        return number_format($number, $digs, ',', '.');
     }
     public static function pctToDbl($pct)
     {
@@ -69,7 +65,6 @@ class Functions
         if (isset(self::$gottenArgs[$except])) {
             return self::$gottenArgs[$except];
         }
-        global $_GET,$_SERVER;
         $str = self::phpSelf().'?';
         $bool = false;
         $remove = false;
@@ -137,11 +132,12 @@ class Functions
     }
     private static function findChildrenSub($id, &$ar, $table)
     {
+        $delomraade_id='delomraade_id';
         $rs = DB::fetch("SELECT * FROM $table WHERE omraade_id=$id");
         while ($row = $rs->next()) {
-            if (!in_array($row['delomraade_id'], $ar)) {
-                $ar[] = $row['delomraade_id'];
-                self::findChildrenSub($row['delomraade_id'], $ar, $table);
+            if (!in_array($row[$delomraade_id], $ar)) {
+                $ar[] = $row[$delomraade_id];
+                self::findChildrenSub($row[$delomraade_id], $ar, $table);
             }
         }
     }

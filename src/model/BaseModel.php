@@ -43,7 +43,7 @@ abstract class BaseModel
     {
         return (isset(static::${$var}) && static::${$var} instanceof ModelField)
             || (($pos = strpos($var, '_id')) !== false && isset(static::${$subvar = substr($var, 0, $pos)}))
-            || ($class = static::has($var));
+            || static::has($var);
     }
     public function __get($var)
     {
@@ -98,7 +98,6 @@ abstract class BaseModel
         if (strpos($class, '\\') === false) {
             $pos = strrpos(get_called_class(), '\\');
             $class = substr(get_called_class(), 0, $pos + 1).$class;
-            //echo $this->_model;
         }
         if (!$field) {
             $class::init();
@@ -135,9 +134,7 @@ abstract class BaseModel
         $pattern = '/[A-Z]/';
         $to = '_$0';
         $class = preg_replace($pattern, $to, get_called_class());
-        $name = \strtolower(\substr($class, \strrpos($class, '\\') + 2));
-
-        return $name;
+        return \strtolower(\substr($class, \strrpos($class, '\\') + 2));
     }
     public static function init()
     {

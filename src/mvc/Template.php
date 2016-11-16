@@ -23,7 +23,7 @@ class Template
     {
         return isset($this->vars[$index]);
     }
-    public function show($name, $includebase = true)
+    public function show($name)
     {
         $twig = Registry::getInstance()->twig;
         $this->router = Registry::getInstance()->router;

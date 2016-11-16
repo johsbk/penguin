@@ -43,7 +43,6 @@ class Qand
     }
     public function _handleArgs($args)
     {
-        //print_r($args);
         $newargs = array();
         foreach ($args as $k => $v) {
             if (!($v instanceof self)) {
@@ -155,16 +154,13 @@ class Qand
                     }
                 }
             }
-            if (!$found) {
-                if ($class = $model::has($k)) {
-                    $found = true;
-                    list($m, $f) = $class;
-                    $modelName = $m::getName();
-                    $newscope = $this->getNewScope();
-                    $tmp = "{$scope}.id in (SELECT {$newscope}.$f->dbname FROM $modelName {$newscope} WHERE ".$this->_as_sql($m, $v, $newscope).')';
-                    $exps[] = $tmp;
-                    //throw new \Exception($tmp, 1);
-                }
+            if (!$found && $class = $model::has($k)) {
+                $found = true;
+                list($m, $f) = $class;
+                $modelName = $m::getName();
+                $newscope = $this->getNewScope();
+                $tmp = "{$scope}.id in (SELECT {$newscope}.$f->dbname FROM $modelName {$newscope} WHERE ".$this->_as_sql($m, $v, $newscope).')';
+                $exps[] = $tmp;
             }
             if (!$found) {
                 throw new DBException(sprintf('Unknown field: %s in model: %s', $k, $model));

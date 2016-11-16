@@ -7,7 +7,7 @@ class Date
     public $day;
     public $month;
     public $year;
-    public function Date()
+    public function __construct()
     {
     }
     public function fromstring($date)

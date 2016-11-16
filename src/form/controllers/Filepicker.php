@@ -26,7 +26,6 @@ class Filepicker extends BaseController
         $localpath = Functions::nz($args['path'], '');
         $mediapath = SITE_PATH.'/media/';
         $dir = new \DirectoryIterator($mediapath.$localpath);
-        $i = 0;
         $picformats = array('png', 'jpg', 'gif');
         $files = array();
         foreach ($dir as $file) {
