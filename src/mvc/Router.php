@@ -25,7 +25,7 @@ class Router {
 		
 		/*** check if path is a directory ***/
 		if (is_dir($path) == false) {
-			throw new Exception ('Invalid controller path: `' . $path . '`');
+			throw new MVCException ('Invalid controller path: `' . $path . '`');
 		}
 		/*** set the path ***/
 		$this->path = $path;
@@ -83,7 +83,7 @@ class Router {
 	 		} elseif ($rule[0]=='allow') {
 	 			$result = true;
 	 		} else {
-	 			throw new Exception("Unknown rule: ".$rule[0]);
+	 			throw new MVCException("Unknown rule: ".$rule[0]);
 	 		}
 	 		if (!isset($rule['users']) || $rule['users']=='*' || ($rule['users']=='@' && Auth::isLoggedin())) {
 	 			if (!isset($rule['actions']) || in_array($action, $rule['actions'])) return $result;

@@ -4,7 +4,7 @@ class MailService {
 	private $transport;
 	function __construct($host,$port,$user=false,$password=false) {
 		if (!class_exists('Swift_SmtpTransport')) {
-			throw new \Exception('Swift not found');
+			throw new MailException('Swift not found');
 		}
 		if ($port==465) {
 
