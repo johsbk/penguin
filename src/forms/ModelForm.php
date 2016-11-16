@@ -30,7 +30,7 @@ class ModelForm extends Form {
 			#echo $this->_model;
 		}
 		/* @var $model BaseModel */
-		if (!class_exists(self::$_model)) throw new \Exception("Class: ".self::$_model." doesn't exist");
+		if (!class_exists(self::$_model)) throw new FormException("Class: ".self::$_model." doesn't exist");
 		return self::$_model;
 	}
 	function save() {

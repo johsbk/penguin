@@ -17,7 +17,7 @@ class ForeignKeyField extends UintField {
 		}
 		$model = $this->model;
 		/* @var $model BaseModel */
-		if (!class_exists($model)) throw new Exception("Class: $model doesn't exist");
+		if (!class_exists($model)) throw new ModelException("Class: $model doesn't exist");
 		$mymodel=$test[1]['class'];
 		$this->related_name = Functions::nz($dict['related_name'],$mymodel::getName());
 		$model::init();

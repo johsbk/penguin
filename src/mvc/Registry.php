@@ -24,7 +24,7 @@ class Registry {
 	public $twig;
 	private static $instance;
 	public function __get($index) {
-		if (!isset($this->$index)) throw new \Exception ('Not set: '.$index); 
+		if (!isset($this->$index)) throw new MVCException ('Not set: '.$index); 
 		return $this->vars[$index];
 	}
 	public function __set($index,$value) {

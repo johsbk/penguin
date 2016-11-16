@@ -13,7 +13,7 @@ class IntField extends ModelField {
 		return "int($this->size)";
 	}
 	function set($value) {
-		if (!is_numeric($value)) throw new Exception("Field $this->_model.$this->name: Not a numeric value : $value");
+		if (!is_numeric($value)) throw new ModelException("Field $this->_model.$this->name: Not a numeric value : $value");
 		return parent::set($value);
 	}
 	function getFormType() {

@@ -14,8 +14,8 @@ class UintField extends ModelField {
 	}
 	function set($value) {
 		if ($value==='') $value=0;
-		if (!is_numeric($value)) throw new Exception("Field $this->_model.$this->name: Not a numeric value : $value");
-		if ($value < 0) throw new Exception("Field $this->name: no negative values allowed : $value");
+		if (!is_numeric($value)) throw new ModelException("Field $this->_model.$this->name: Not a numeric value : $value");
+		if ($value < 0) throw new ModelException("Field $this->name: no negative values allowed : $value");
 		return parent::set($value);
 	}
 	function getFormType() {

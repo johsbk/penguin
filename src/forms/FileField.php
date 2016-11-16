@@ -4,7 +4,7 @@ use penguin\forms\widgets\FileInputWidget;
 class FileField extends FormField {
 	var $path;
 	function __construct($dict=array()) {
-		if (!isset($dict['path'])) throw new \Exception('No upload path given');
+		if (!isset($dict['path'])) throw new FormException('No upload path given');
 		$this->path = $dict['path'];
 		$this->widget = new FileInputWidget();
 		parent::__construct($dict);

@@ -20,7 +20,7 @@ class ComboBox {
 		$rs = Functions::nz($dict["rs"],false);
 		$array = Functions::nz($dict['array'],false);
 		$model = Functions::nz($dict['model'],false);
-		if ($rs===false && $array===false && $model===false) throw new Exception("ComboBox: no rs,model or array supplied!");
+		if ($rs===false && $array===false && $model===false) throw new FormException("ComboBox: no rs,model or array supplied!");
 		$governs = Functions::nz($dict['governs'],false);
 		$hidden = Functions::nz($dict['hidden'],'id');
 		$shown = Functions::nz($dict['shown'],'name');
@@ -69,7 +69,7 @@ class ComboBox {
 		$out[] = "\"";
 		$out[] = ">";
 		if ($firstoption) {
-			if (!is_array($firstoption)) throw new Exception("Fix firstoption!");
+			if (!is_array($firstoption)) throw new FormException("Fix firstoption!");
 			$val = Functions::nz($firstoption['value'],".");
 			$out[] = "<option value=\"$val\">".$firstoption['option']."</option>";
 		}
@@ -91,9 +91,7 @@ class ComboBox {
 	static private function option($row,$governs,$hidden,$shown,$default) {
 		$out = array();
 		$out[] = "<option";
-		if ($governs && isset($_GET[$governs]) && $_GET[$governs]==$row[$hidden])
-			$out[] = " selected=\"selected\"";
-		elseif ($default && $row[$hidden]==$default) 
+		if (($governs && isset($_GET[$governs]) && $_GET[$governs]==$row[$hidden]) || ($default && $row[$hidden]==$default)) 
 			$out[] = " selected=\"selected\"";
 		$out[] = " value=\"{$row[$hidden]}\">{$row[$shown]}</option>";
 		return join("\n",$out);

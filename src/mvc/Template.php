@@ -1,6 +1,5 @@
 <?php
 namespace penguin\mvc;
-use \Exception;
 Class Template {
 
 	/*
@@ -31,9 +30,8 @@ Class Template {
 			$path = SITE_PATH .'/src/'.$app. '/views/'. $name . '.php';
 		}
 
-		if (file_exists($path) == false) {
-			throw new Exception('Template not found in '. $path);
-			return false;
+		if (!file_exists($path)) {
+			throw new MVCException('Template not found in '. $path);
 		}
 		$t= $twig->loadTemplate('phptemplate.tpl');
 		$this->path = $path;

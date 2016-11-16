@@ -13,10 +13,6 @@ class DoubleField extends ModelField {
 	}
 	function set($value) {
 		return $value==='' || is_null($value) ? 'NULL' : $value;
-		if (strpos($value, ',')!==false) {
-			$value = str_replace(',','.',str_replace('.', '', $value));
-		}
-		return $value;
 	}
 	function toString($value) {
 		return $value==='' || is_null($value) ? 'NULL' : $value;

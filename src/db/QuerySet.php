@@ -57,7 +57,7 @@ class QuerySet implements \Iterator {
 
 		$clone = clone $this;
 		$clone->query = clone $this->query;
-		if (is_array($dict) and count($dict)==0) return $clone;
+		if (is_array($dict) && count($dict)==0) return $clone;
 		if (!$negate) {
 			$clone->query->add_q(new Qand($dict));
 		} else {
@@ -107,7 +107,7 @@ class QuerySet implements \Iterator {
 		$model = $this->model;
 		$field = $model::getField($name);
 		if (!$field instanceof ForeignKeyField) {
-			throw new \Exception($name.' is not a foreign key');
+			throw new DBException($name.' is not a foreign key');
 		}
 		$queryset = new QuerySet(['model'=>$field->model]);
 		$q= $this->query->compiler()->as_sql('SELECT t0.'.$field->dbname);

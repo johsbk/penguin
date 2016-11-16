@@ -367,7 +367,7 @@ class Form {
 		}
 		if ($type=="combobox") {
 			$dict = Functions::nz($f['dict'],false);
-			if (!$dict) throw new Exception("No dict");
+			if (!$dict) throw new FormException("No dict");
 			$dict["default"]=$default;
 			$dict["name"]=$inputname;
 			$dict["onchange"]=$onchange;

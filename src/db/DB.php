@@ -20,7 +20,7 @@ class DB {
 		
 	}
 	private static function connect () {
-		if (!self::$conn = mysqli_connect(self::$host,self::$user,self::$pass)) throw new DBException('mysql_connect error: '.mysqli_error(self::$conn));;
+		if (!self::$conn = mysqli_connect(self::$host,self::$user,self::$pass)) throw new DBException('mysql_connect error: '.mysqli_error(self::$conn));
 		if (!mysqli_select_db(self::$conn,self::$db)) throw new DBException('mysql_select_db error:'.mysqli_error(self::$conn));
 		#$this->timespentindb += microtime(true) -$tmp;
 		DB::query("SET NAMES 'utf8'");

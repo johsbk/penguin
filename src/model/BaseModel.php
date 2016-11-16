@@ -24,20 +24,15 @@ abstract class BaseModel {
 		return $this->row;
 	}
 	function __set($var,$value) {
-		if (isset(static::${$var}) and static::${$var} instanceof ModelField) {
+		if (isset(static::${$var}) && static::${$var} instanceof ModelField) {
 			$this->row[static::${$var}->dbname] = static::${$var}->set($value);
 			return;
 		}
 	}
 	function __isset($var) {
-		if (isset(static::${$var}) && static::${$var} instanceof ModelField) {
-			return true;
-		} elseif (($pos = strpos($var, "_id")) !==false && isset(static::${$subvar =substr($var,0,$pos)})) {
-			return true;	
-		} elseif ($class= static::has($var)) {
-			return true;
-		}
-		return false;
+		return (isset(static::${$var}) && static::${$var} instanceof ModelField) 
+			|| (($pos = strpos($var, "_id")) !==false && isset(static::${$subvar =substr($var,0,$pos)})) 
+			|| ($class= static::has($var));
 	}
 	function __get($var) {
 		self::init();
@@ -59,7 +54,7 @@ abstract class BaseModel {
 			$dict['where'][] = "$f->dbname={$this->row['id']}";
 			return $m::all($dict);
 		} else {
-			throw new Exception("No function called $method in class ".get_called_class());
+			throw new ModelException("No function called $method in class ".get_called_class());
 		}
 	}
 	static function has ($name) {
@@ -345,7 +340,7 @@ abstract class BaseModel {
 		$dict['table']=static::getName();
 		$fields =array();
 		foreach(static::getFields() as $f) {
-			if (($showfields and (array_key_exists($f->name, $showfields) or in_array($f->name,$showfields))) or !$showfields) {
+			if (($showfields && (array_key_exists($f->name, $showfields) || in_array($f->name,$showfields))) || !$showfields) {
 				$field = Functions::nz($showfields[$f->name],array());
 				$field["name"]=$f->dbname;
 				if (!isset($field['type']))	$field["type"]=$f->getFormType();

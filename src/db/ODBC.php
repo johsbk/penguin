@@ -5,7 +5,7 @@ class ODBC {
 	
 	
 	static function login($str) {
-		if(!self::$conn = @odbc_connect($str, "", "",SQL_CUR_USE_DRIVER)) throw new \Exception('Failed connect: '.odbc_errormsg());
+		if(!self::$conn = @odbc_connect($str, "", "",SQL_CUR_USE_DRIVER)) throw new DBException('Failed connect: '.odbc_errormsg());
 	}
 	static function logout() {
 		odbc_close(self::$conn);
@@ -17,7 +17,7 @@ class ODBC {
 	 * @return unknown
 	 */
 	static function query($query) {
-		if(!$var = \odbc_exec(self::$conn,$query)) throw new \Exception("(".$query.") had an error: ".\odbc_errormsg());
+		if(!$var = \odbc_exec(self::$conn,$query)) throw new DBException("(".$query.") had an error: ".\odbc_errormsg());
 		return $var;
 	}
 	/**

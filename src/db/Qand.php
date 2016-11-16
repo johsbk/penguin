@@ -73,7 +73,7 @@ class Qand {
 								elseif($field instanceof DateField)
 									$v2 = $v2->format('Y-m-d');
 								else
-									throw new \Exception('Field '.$field->name.' doesnt take a datetime');
+									throw new DBException('Field '.$field->name.' doesnt take a datetime');
 							}
 							switch($k2) {
 								case "contains":
@@ -149,7 +149,7 @@ class Qand {
 				}
 			}
 			if (!$found) 
-				throw new \Exception(sprintf("Unknown field: %s in model: %s",$k,$model));
+				throw new DBException(sprintf("Unknown field: %s in model: %s",$k,$model));
 		}
 		return '('.join(' '.$this->type.' ',$exps).')';
 	}
