@@ -5,6 +5,7 @@ namespace penguin\db;
 use penguin\model\BaseModel;
 use penguin\model\DateTimeField;
 use penguin\model\DateField;
+use Analog\Analog;
 
 class Qand
 {
@@ -91,10 +92,10 @@ class Qand
                 $operator = '';
                 $f = $k;
                 if (is_array($v)) {
-                    $exp = $this->solveOperators($v,$scope,$field,$f);
-                    if ($exp) {
+                    $newexps = $this->solveOperators($v,$scope,$field,$f);
+                    if (!empty($newexps)) {
                         $operator = 'adsf';
-                        $exps[] = $exp;
+                        $exps = array_merge($exps,$newexps);
                     }
                 } else {
                     $operator = '=';
@@ -108,18 +109,19 @@ class Qand
             }
             if (!$found && $class = $model::has($k)) {
                 $found = true;                    
-                $exps[] = $this->solveReverseForeignKey($class,$scope,$v,$f);
+                $exps[] = $this->solveReverseForeignKey($class,$scope,$v);
             }
             if (!$found) {
                 throw new DBException(sprintf('Unknown field: %s in model: %s', $k, $model));
             }
         }
-
         return '('.implode(' '.$this->type.' ', $exps).')';
     }
     private function solveOperators($v,$scope,$field,$f) {
         $operator = '';
+        $exps = [];
         foreach ($v as $k2 => $v2) {
+
             if ($v2 instanceof \DateTime) {
                 if ($field instanceof DateTimeField) {
                     $v2 = $v2->format('Y-m-d H:i:s');
@@ -171,9 +173,10 @@ class Qand
                     // nothing
             }
             if ($operator != '') {
-                return "$scope.`$f` $operator $value";
+                $exps[]= "$scope.`$f` $operator $value";
             }
         }
+        return $exps;
     }
     private function solveEqualOperator($v,$f,$scope) {
         if ($v instanceof BaseModel) {
@@ -190,7 +193,7 @@ class Qand
         $newscope = $this->getNewScope();
         return "$scope.{$f}_id in (SELECT $newscope.id FROM $modelName $newscope WHERE ".$this->_as_sql($m, $v, $newscope).')';
     }
-    private function solveReverseForeignKey($class,$scope,$v,$f) {
+    private function solveReverseForeignKey($class,$scope,$v) {
         list($m, $f) = $class;
         $modelName = $m::getName();
         $newscope = $this->getNewScope();
