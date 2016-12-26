@@ -1,7 +1,7 @@
 <?php
 
 namespace penguin\console;
-
+use Symfony\Component\Console\Output\OutputInterface;
 class Project
 {
     private $app;
