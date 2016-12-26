@@ -19,7 +19,7 @@ class Project
     {
         foreach ($dict as $env => $hosts) {
             if (in_array(gethostname(), $hosts)) {
-                $this->env = $env;
+                $this->setEnvironment($env);
             }
         }
         define('DEBUG', $this->env == 'local');
