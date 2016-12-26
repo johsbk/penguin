@@ -10,7 +10,10 @@ return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Debug\\' => array($vendorDir . '/symfony/debug'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'Silly\\Edition\\PhpDi\\' => array($vendorDir . '/mnapoli/silly-php-di/src'),
     'Silly\\' => array($vendorDir . '/mnapoli/silly/src'),
+    'PhpDocReader\\' => array($vendorDir . '/php-di/phpdoc-reader/src/PhpDocReader'),
     'Invoker\\' => array($vendorDir . '/php-di/invoker/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
+    'DI\\' => array($vendorDir . '/php-di/php-di/src/DI'),
 );

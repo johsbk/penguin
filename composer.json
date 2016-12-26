@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.3.0",
         "analog/analog": "^1.0",
-        "mnapoli/silly": "^1.5"
+        "mnapoli/silly-php-di": "^1.1"
     },
      "autoload": {
         "psr-4": {"penguin\\": "src/"}
