@@ -17,6 +17,7 @@ class Project
     }
     public function detectEnvironment($dict)
     {
+        $this->setEnvironment(null);
         foreach ($dict as $env => $hosts) {
             if (in_array(gethostname(), $hosts)) {
                 $this->setEnvironment($env);
