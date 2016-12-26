@@ -27,14 +27,11 @@ class Project
     public function setEnvironment($env)
     {
         $this->env = $env;
+        Registry::getInstance()->env = $env;
     }
     public function initDatabase()
     {
-        if ($this->env && file_exists($config = SITE_PATH.'/config/'.$this->env.'/database.php')) {
-            $settings = require $config;
-        } else {
-            $settings = require SITE_PATH.'/config/database.php';
-        }
+        $settings = Config::get('database');
         \penguin\db\DB::login($settings['user'], $settings['pass'], $settings['host'], $settings['db']);
     }
     private function initRoutes()

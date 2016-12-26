@@ -45,7 +45,7 @@ class Router
 
             /*** a new controller class instance ***/
             $class = $this->controller;
-         $controller = new $class();
+            $controller = new $class();
                 /*** check if the action is callable ***/
                 if (!is_callable(array($controller, $this->action))) {
                     $action = self::INDEX;
