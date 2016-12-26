@@ -4,28 +4,19 @@ namespace penguin\console;
 
 class Project
 {
+    private $app;
     public function __construct($project)
     {
+        $this->app = new Silly\Application();
+        $this->app->command('runjobs',function (OutputInterface $output) { $this->runJobs($output); });
+        $this->app->command('runfailedjobs', function (OutputInterface $output) { $this->runFailedJobs($output);});
         $project->initDatabase();
     }
     public function run()
     {
-        foreach ($_SERVER['argv'] as $arg) {
-            switch ($arg) {
-                case 'runjobs':
-                    $this->runJobs();
-                    break;
-                case 'runfailedjobs':
-                    $this->runFailedJobs();
-                    break;
-                case 'penguin':
-                    break;
-                default:
-                    throw new \InvalidArgumentException("Unknown argument: ".$arg);
-            }
-        }
+        $this->app->run();
     }
-    private function runJobs()
+    private function runJobs(OutputInterface $output)
     {
         $pidfile = 'runjobs.pid';
         if (file_exists($pidfile)) {
@@ -39,24 +30,24 @@ class Project
                 $found = count($data) > 1;
             }
             if ($found) {
-                echo "Process already running\n";
+                $output->writeln("Process already running");
 
                 exit;
             }
         }
         file_put_contents($pidfile, getmypid());
         register_shutdown_function(function () use ($pidfile) {
-            echo "deleting pid file\n";
+            $output->writeln("deleting pid file");
             unlink($pidfile);
         });
         $jq = \penguin\jobs\JobQueue::getInstance();
-        echo "starting jobs\n";
+        $output->writeln("starting jobs");
         $jq->runJobs();
     }
-    private function runFailedJobs()
+    private function runFailedJobs(OutputInterface $output)
     {
         $jq = \penguin\jobs\FailedJobQueue::getInstance();
-        echo "starting jobs\n";
+        $output->writeln("starting jobs");
         $jq->runJobs();
     }
 }
