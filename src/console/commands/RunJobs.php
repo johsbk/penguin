@@ -19,11 +19,11 @@ class RunJobs {
             if ($found) {
                 $output->writeln("Process already running");
 
-                exit;
+                return;
             }
         }
         file_put_contents($pidfile, getmypid());
-        register_shutdown_function(function () use ($pidfile) {
+        register_shutdown_function(function () use ($pidfile,$output) {
             $output->writeln("deleting pid file");
             unlink($pidfile);
         });
