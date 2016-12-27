@@ -4,6 +4,7 @@ namespace penguin\jobs;
 
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Wire\AMQPTable;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use penguin\patterns\Singleton;
 use Analog\Analog;
@@ -22,7 +23,11 @@ class JobQueue extends Singleton
         $this->conn = new AMQPConnection('localhost', 5672, 'guest', 'guest');
         $this->channel = $this->conn->channel();
         $this->channel->exchange_declare($this->exchange_name,'direct');
-        $this->channel->queue_declare($this->queue_name, false, true, false, false,false,$this->getQueueArguments());
+        $queue_args = $this->getQueueArguments();
+        if ($queue_args != null ) {
+            $queue_args = new AMQPTable($queue_args);
+        }
+        $this->channel->queue_declare($this->queue_name, false, true, false, false,false,$queue_args);
         $this->channel->queue_bind($this->queue_name,$this->exchange_name);
     }
 
