@@ -7,6 +7,7 @@ use Analog\Analog;
 class FailedJobQueue extends JobQueue
 {
     protected $queue_name = 'failed_job_queue';
+    protected $exchange_name = 'failed_job_exchange';
     public function runJobs()
     {
         $cb = function ($msg) {

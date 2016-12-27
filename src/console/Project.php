@@ -11,6 +11,9 @@ class Project
         $this->app->command('runfailedjobs', 'penguin\console\commands\RunFailedJobs');
         $project->initDatabase();
     }
+    public function command($cmd,$ref) {
+        $this->app->command($cmd,$ref);
+    }
     public function run()
     {
         $this->app->run();

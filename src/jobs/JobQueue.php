@@ -11,6 +11,7 @@ use Analog\Analog;
 class JobQueue extends Singleton
 {
     protected $queue_name = 'job_queue';
+    protected $exchange_name = 'job_exchange';
     protected $conn;
     protected $channel;
     /**
@@ -20,7 +21,13 @@ class JobQueue extends Singleton
     {
         $this->conn = new AMQPConnection('localhost', 5672, 'guest', 'guest');
         $this->channel = $this->conn->channel();
-        $this->channel->queue_declare($this->queue_name, false, true, false, false);
+        $this->channel->exchange_declare($this->exchange_name,'direct');
+        $this->channel->queue_declare($this->queue_name, false, true, false, false,false,$this->getQueueArguments());
+        $this->channel->queue_bind($this->queue_name,$this->exchange_name);
+    }
+
+    protected  function getQueueArguments() {
+        return null;
     }
     /**
      * @var Job
@@ -28,7 +35,7 @@ class JobQueue extends Singleton
     public function add($job)
     {
         $msg = new AMQPMessage(serialize($job), array('delivery_mode' => 2));
-        $this->channel->basic_publish($msg, '', $this->queue_name);
+        $this->channel->basic_publish($msg, '', $this->exchange_name);
     }
     public function runJobs()
     {
