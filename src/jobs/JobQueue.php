@@ -35,7 +35,8 @@ class JobQueue extends Singleton
     public function add($job)
     {
         $msg = new AMQPMessage(serialize($job), array('delivery_mode' => 2));
-        $this->channel->basic_publish($msg, '', $this->exchange_name);
+
+        $this->channel->basic_publish($msg, $this->exchange_name, '');
     }
     public function runJobs()
     {
