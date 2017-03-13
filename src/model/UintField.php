@@ -31,7 +31,7 @@ class UintField extends ModelField
             throw new ModelException("Field $this->name: no negative values allowed : $value");
         }
 
-        return parent::set($value);
+        return parent::set(intval($value));
     }
     public function getFormType()
     {
